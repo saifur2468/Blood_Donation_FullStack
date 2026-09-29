@@ -1,8 +1,9 @@
-"use client"; // এটি ফাইলের একদম উপরে থাকতে হবে
+'use client';
 
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import Link from 'next/link';
 
-export default function Error({
+export default function ErrorBoundary({
   error,
   reset,
 }: {
@@ -10,35 +11,51 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // চাইলে কনসোলে এরর লগ করে দেখতে পারেন
-    console.error(error);
+   
+    console.error('Global Application Error:', error);
   }, [error]);
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
-      <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mb-4 font-bold shadow-sm">
-        ⚠️
-      </div>
-      <h2 className="text-2xl font-bold text-slate-800 mb-2">Something went wrong!</h2>
-      <p className="text-slate-600 max-w-md mb-6 text-sm">
-        An unexpected error has occurred. We apologize for the inconvenience. Please try again.
-      </p>
-      <div className="flex gap-4">
-        <button
-          onClick={
-            // পেজটি আবার রেন্ডার করার চেষ্টা করবে
-            () => reset()
-          }
-          className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl text-sm transition-all shadow-sm"
-        >
-          Try again
-        </button>
-        <a
-          href="/"
-          className="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold rounded-xl text-sm transition-all"
-        >
-          Go Home
-        </a>
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-100 text-center">
+        {/* Error Icon / Illustration */}
+        <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-inner">
+          ⚠️
+        </div>
+
+        {/* Heading */}
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">
+          Kichu ekta vul hoyeche!
+        </h2>
+        
+        {/* Description */}
+        <p className="text-slate-600 text-sm mb-6 leading-relaxed">
+          Amader system-e ekta unexpected error ghoteche. Doya kore abar chesta korun ba home page-e fire jaan.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            onClick={() => reset()}
+            className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-medium px-5 py-2.5 rounded-xl transition-colors shadow-lg shadow-red-200"
+          >
+            Abar Try Korun
+          </button>
+          
+          <Link
+            href="/"
+            className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-5 py-2.5 rounded-xl transition-colors text-center"
+          >
+            Home-e Jaan
+          </Link>
+        </div>
+
+        {/* Optional Error Digest for debugging */}
+        {error?.digest && (
+          <p className="mt-6 text-xs text-slate-400 font-mono">
+            Error ID: {error.digest}
+          </p>
+        )}
       </div>
     </div>
   );
