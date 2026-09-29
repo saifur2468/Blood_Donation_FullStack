@@ -21,6 +21,7 @@ import {
   Bell,
   Search,
 } from "lucide-react";
+import { FaChartPie, FaCogs, FaFileAlt, FaListAlt, FaRegFileAlt, FaShieldAlt, FaUser } from "react-icons/fa";
 
 export default function DashboardLayout({
   children,
@@ -50,14 +51,39 @@ export default function DashboardLayout({
   // Role onujayi route gula define kora
   const getSidebarLinks = () => {
     switch (userRole) {
-      case "ADMIN":
-        return [
-          { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-          { name: "Manage Users", href: "/dashboard/admin/users", icon: Users },
-          { name: "Verify Requests", href: "/dashboard/admin/verify-requests", icon: UserCheck },
-          { name: "System Report", href: "/dashboard/admin/reports", icon: BarChart3 },
-          { name: "User Role Control", href: "/dashboard/admin/role-control", icon: ShieldAlert },
-        ];
+     case "ADMIN":
+  return [
+    {
+      name: "Dashboard",
+      href: "/dashboard/admin",
+      icon: FaChartPie,
+    },
+    {
+      name: "Users",
+      href: "/dashboard/admin/users",
+      icon: FaUser,
+    },
+    {
+      name: "Roles",
+      href: "/dashboard/admin/roles",
+      icon: FaShieldAlt,
+    },
+    {
+      name: "Reports",
+      href: "/dashboard/admin/reports",
+      icon: FaRegFileAlt,
+    },
+    {
+      name: "Requests",
+      href: "/dashboard/admin/requests",
+      icon: FaListAlt,
+    },
+    {
+      name: "Audit Logs",
+      href: "/dashboard/admin/audit-logs",
+      icon: FaCogs,
+    },
+  ];
       case "PATIENT":
         return [
           { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },

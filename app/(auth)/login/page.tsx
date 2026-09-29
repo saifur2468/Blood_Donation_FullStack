@@ -27,7 +27,7 @@ export default function LoginPage() {
 
   // Role onujayi redirect
   const redirectByRole = (role: string) => {
-    if (role === "ADMIN") router.push("/admin/dashboard");
+    if (role === "ADMIN") router.push("/admin");
     else if (role === "PROVIDER") router.push("/provider/dashboard");
     else router.push("/");
   };
