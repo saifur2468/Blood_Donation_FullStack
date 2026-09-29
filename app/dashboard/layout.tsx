@@ -54,7 +54,7 @@ export default function DashboardLayout({
      case "ADMIN":
   return [
     {
-      name: "Dashboard",
+      name: "overView",
       href: "/dashboard/admin",
       icon: FaChartPie,
     },
@@ -192,8 +192,8 @@ export default function DashboardLayout({
             >
               <Menu className="h-6 w-6" />
             </button>
-            <h2 className="text-xl font-black tracking-tight text-slate-900">
-              Good morning, <span className="text-slate-700 font-semibold">{userName.split(" ")[0]}</span>
+            <h2 className="text-xl font-black text-center  text-red-600">
+             Here's what's happening with your blood donation platform today <span className="text-slate-700 font-semibold"></span>
             </h2>
           </div>
 
