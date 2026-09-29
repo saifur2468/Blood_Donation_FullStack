@@ -12,7 +12,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
-    { name: "Find Donors", href: "/donors" },
+    { name: "Find Donors", href: "/FindDonor" },
     { name: "Blood Requests", href: "/requests" },
     { name: "Contact", href: "/contact" },
   ];
