@@ -1,11 +1,13 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { showToast } from "@/components/ui/toast";
+
 type Donor = {
   id?: string;
   _id?: string;
   fullName: string;
   email: string;
+  role?: string;
   phoneNumber?: string;
   city?: string;
   bloodGroup?: string;
@@ -31,11 +33,19 @@ const FindDonorsPage = () => {
   const [location, setLocation] = useState('');
   const [debouncedLocation, setDebouncedLocation] = useState('');
 
-  // Location e typing thamar 500ms pore fetch hobe
+  // Pagination States
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; 
+
+
   useEffect(() => {
     const t = setTimeout(() => setDebouncedLocation(location.trim()), 500);
     return () => clearTimeout(t);
   }, [location]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [bloodGroup, debouncedLocation]);
 
   // Fetch donors based on filters
   useEffect(() => {
@@ -59,7 +69,6 @@ const FindDonorsPage = () => {
 
     const queryString = params.toString();
     const finalUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-    console.log('finalUrl:', finalUrl);
 
     fetch(finalUrl, { signal: controller.signal })
       .then((res) => {
@@ -67,7 +76,15 @@ const FindDonorsPage = () => {
         return res.json();
       })
       .then((data) => {
-        setDonors(data.success ? data.data : []);
+        if (data.success && Array.isArray(data.data)) {
+        
+          const validDonors = data.data.filter(
+            (user: Donor) => !user.role || user.role.toUpperCase() === 'DONOR'
+          );
+          setDonors(validDonors);
+        } else {
+          setDonors([]);
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -79,6 +96,11 @@ const FindDonorsPage = () => {
 
     return () => controller.abort();
   }, [bloodGroup, debouncedLocation]);
+
+  // Pagination Calculations
+  const totalPages = Math.ceil(donors.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentDonors = donors.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -132,65 +154,96 @@ const FindDonorsPage = () => {
           No donors found matching your criteria.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {donors.map((donor, index) => (
-            <div
-              key={donor.id ?? donor._id ?? index}
-              className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-gray-900">{donor.fullName}</h3>
-                <span className="bg-red-100 text-red-700 font-bold px-3 py-1 rounded-full text-sm">
-                  {BLOOD_LABELS[donor.bloodGroup ?? ''] || donor.bloodGroup || 'N/A'}
-                </span>
-              </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {currentDonors.map((donor, index) => (
+              <div
+                key={donor.id ?? donor._id ?? index}
+                className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-xl font-bold text-gray-900">{donor.fullName}</h3>
+                    <span className="bg-red-100 text-red-700 font-bold px-3 py-1 rounded-full text-sm">
+                      {BLOOD_LABELS[donor.bloodGroup ?? ''] || donor.bloodGroup || 'N/A'}
+                    </span>
+                  </div>
 
-              <div className="space-y-2 text-gray-600 text-sm">
-                <p>
-                  <span className="font-semibold">Email:</span> {donor.email}
-                </p>
-                <p>
-                  <span className="font-semibold">Phone:</span> {donor.phoneNumber || 'Not Provided'}
-                </p>
-                <p>
-                  <span className="font-semibold">City/Location:</span> {donor.city || 'Not Provided'}
-                </p>
-                <p>
-                  <span className="font-semibold">Status:</span>{' '}
-                  <span
-                    className={donor.isAvailable ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}
+                  <div className="space-y-2 text-gray-600 text-sm">
+                    <p>
+                      <span className="font-semibold">Email:</span> {donor.email}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Phone:</span> {donor.phoneNumber || 'Not Provided'}
+                    </p>
+                    <p>
+                      <span className="font-semibold">City/Location:</span> {donor.city || 'Not Provided'}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Status:</span>{' '}
+                      <span
+                        className={donor.isAvailable ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}
+                      >
+                        {donor.isAvailable ? 'Available' : 'Not Available'}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <button 
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!donor.phoneNumber}
+                    onClick={() => {
+                      if (donor.phoneNumber) {
+                        showToast(`Calling donor at: ${donor.phoneNumber}`, 'success');
+                      } else {
+                        showToast('Phone number not available!', 'error');
+                      }
+                    }}
                   >
-                    {donor.isAvailable ? 'Available' : 'Not Available'}
-                  </span>
-                </p>
+                    Contact Donor
+                  </button>
+                </div>
               </div>
+            ))}
+          </div>
 
-              <div className="mt-6">
-                {/* <button
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={!donor.phoneNumber}
-                  onClick={() => alert(`Call donor at: ${donor.phoneNumber}`)}
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-10">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+              >
+                Previous
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-4 py-2 rounded-lg border font-medium text-sm transition-colors ${
+                    currentPage === page
+                      ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-100'
+                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+                  }`}
                 >
-                Contact Donor
-                </button> */}
-                <button 
-  className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-  disabled={!donor.phoneNumber}
-  onClick={() => {
-    if (donor.phoneNumber) {
-      showToast(`Calling donor at: ${donor.phoneNumber}`, 'success');
-   
-    } else {
-      showToast('Phone number not available!', 'error');
-    }
-  }}
->
-  Contact Donor
-</button>
-              </div>
+                  {page}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+              >
+                Next
+              </button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   );
