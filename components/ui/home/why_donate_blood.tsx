@@ -47,7 +47,7 @@ export default function WhyChooseBloodLink() {
         {/* <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-red-600">
           WHY CHOOSE US
         </span> */}
-        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+        <h2 className="text-xl md:text-5xl  text-gray-900 mb-4 tracking-tight">
           Why Choose BloodLink?
         </h2>
         <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
