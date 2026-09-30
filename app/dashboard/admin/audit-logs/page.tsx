@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function AuditLogsPage() {
   const [logs, setLogs] = useState<any[]>([]);
@@ -9,19 +9,27 @@ export default function AuditLogsPage() {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+        const token =
+          localStorage.getItem("accessToken") ||
+          localStorage.getItem("token");
+        
+        const backendUrl =
+          process.env.NEXT_PUBLIC_BACKEND_URL || "https://l2-a6-blood-donation.vercel.app";
+
         const res = await axios.get(`${backendUrl}/api/v1/admin/audit-logs`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
-        setLogs(res.data.data || []);
-      } catch (err) {
-        console.error("Error fetching audit logs:", err);
+
+        // Postman response structure: res.data.data
+        const logData = res.data?.data || res.data || [];
+        setLogs(Array.isArray(logData) ? logData : []);
+      } catch (err: any) {
+        console.error("Error fetching audit logs:", err?.response?.data || err.message);
       } finally {
         setLoading(false);
       }
@@ -30,62 +38,100 @@ export default function AuditLogsPage() {
   }, []);
 
   // Pagination calculations
-  const totalPages = Math.ceil(logs.length / itemsPerPage);
+  const totalPages = Math.ceil(logs.length / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentLogs = logs.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="w-full">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">System Audit Logs</h1>
-        <p className="mt-1 text-sm text-slate-500">Track all administrative and system actions.</p>
+    <div className="w-full space-y-6 font-sans">
+      {/* Header section */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">System Audit Logs</h1>
+          <p className="mt-1 text-xs text-slate-500 font-medium">
+            Monitor and track all administrative actions and system modifications in real-time.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold border border-blue-100">
+            Total Logs: {logs.length}
+          </span>
+        </div>
       </div>
 
+      {/* Main Content Card */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         {loading ? (
-          <div className="p-8 text-slate-500 text-center">Loading audit logs...</div>
+          <div className="flex h-48 items-center justify-center text-slate-400 font-semibold text-xs">
+            Loading audit logs securely...
+          </div>
         ) : logs.length === 0 ? (
-          <div className="p-8 text-center text-slate-400 text-sm">No audit logs found.</div>
+          <div className="flex flex-col items-center justify-center h-48 text-slate-400 text-xs font-semibold">
+            <p>No audit logs available.</p>
+          </div>
         ) : (
           <>
-            <div className="p-6 space-y-3">
-              {currentLogs.map((log) => (
-                <div key={log.id || log._id} className="p-4 bg-slate-50/70 rounded-xl flex justify-between items-center text-sm border border-slate-100">
-                  <div>
-                    <span className="font-semibold text-rose-600 uppercase text-xs px-2 py-0.5 bg-rose-50 rounded mr-2">
-                      {log.action}
-                    </span>
-                    <span className="text-slate-700">{log.details || log.description}</span>
-                    <p className="text-xs text-slate-400 mt-1">
-                      By: {log.user?.fullName || log.user?.name || 'Admin'} ({log.user?.email || 'N/A'})
+            <div className="divide-y divide-slate-100">
+              {currentLogs.map((log, index) => (
+                <div
+                  key={log.id || log._id || index}
+                  className="p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:bg-slate-50/60 transition-colors"
+                >
+                  <div className="space-y-1.5 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-black text-rose-600 uppercase text-[10px] px-2.5 py-1 bg-rose-50 rounded-lg border border-rose-100 tracking-wider">
+                        {log.action || "SYSTEM_ACTION"}
+                      </span>
+                      {log.entity && (
+                        <span className="font-bold text-slate-600 uppercase text-[10px] px-2.5 py-1 bg-slate-100 rounded-lg border border-slate-200">
+                          {log.entity}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm font-semibold text-slate-800 pt-0.5">
+                      {log.details || log.description || "Performed administrative action"}
                     </p>
+                    <div className="flex items-center gap-3 text-xs text-slate-400 font-medium pt-0.5">
+                      <span>
+                        By: <strong className="text-slate-700">{log.user?.fullName || log.user?.name || "System Admin"}</strong>
+                      </span>
+                      <span>•</span>
+                      <span>{log.user?.email || "admin@bloodlink.com"}</span>
+                    </div>
                   </div>
-                  <span className="text-xs text-slate-400 whitespace-nowrap ml-4">
-                    {new Date(log.createdAt).toLocaleString()}
-                  </span>
+
+                  <div className="flex items-center md:justify-end shrink-0">
+                    <span className="text-[11px] font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
+                      {log.createdAt ? new Date(log.createdAt).toLocaleString() : "Just now"}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Pagination Controls */}
-            <div className="flex items-center justify-between border-t border-slate-100 bg-white p-4">
-              <span className="text-xs font-medium text-slate-500">
-                Page {currentPage} of {totalPages || 1}
+            {/* Professional Pagination Controls */}
+            <div className="flex flex-col sm:flex-row items-center justify-between border-t border-slate-100 bg-white p-4 px-6 gap-3">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, logs.length)} of {logs.length} entries
               </span>
 
-              <div className="flex gap-2">
+              <div className="flex items-center gap-1.5">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-40"
+                  className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
 
+                <div className="px-3 text-xs font-black text-slate-700">
+                  {currentPage} / {totalPages}
+                </div>
+
                 <button
                   disabled={currentPage >= totalPages}
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-40"
+                  className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>

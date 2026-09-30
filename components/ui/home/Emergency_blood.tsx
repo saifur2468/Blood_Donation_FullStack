@@ -1,8 +1,9 @@
 "use client";
-
+import { FaPhoneAlt } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { AlertCircle, Clock, MapPin, PhoneCall, Heart } from "lucide-react";
-import Link from "next/link";
+
+
 
 interface Patient {
   fullName: string;
@@ -169,17 +170,9 @@ export default function EmergencyRequests() {
                   <p className="text-xs font-extrabold text-slate-900 uppercase">{req.patient?.fullName || "Representative"}</p>
                 </div>
                 
+                
                 <div className="flex items-center gap-2">
-                  <button className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-red-500 hover:border-red-200 transition shadow-sm">
-                    <Heart className="w-4 h-4" />
-                  </button>
-                  <a 
-                    href={`tel:${req.contactNumber || req.patient?.phoneNumber}`}
-                    className="h-10 px-4 bg-red-600 text-white rounded-full flex items-center gap-2 text-xs font-extrabold hover:bg-red-700 transition shadow-sm"
-                  >
-                    <PhoneCall className="w-4 h-4" />
-                    Call
-                  </a>
+                  <FaPhoneAlt /> {req.contactNumber}
                 </div>
               </div>
             </div>
