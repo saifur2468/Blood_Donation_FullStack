@@ -13,7 +13,7 @@ export default function Footer() {
             <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">
             <MdBloodtype />
             </div>
-            <span className="text-xl font-bold text-white">BloodLink</span>
+            <span className="text-xl font-bold text-white">LifeDrop</span>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed">
             Connecting voluntary blood donors with patients in urgent need. Saving lives together, one drop at a time.

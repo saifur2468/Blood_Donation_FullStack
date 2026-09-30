@@ -1,5 +1,6 @@
-import BloodGroupSection from '@/components/ui/home/bloodgroup';
-import Emergency_blood from '@/components/ui/home/Emergency_blood';
+
+import EmergencyRequests from '@/components/ui/home/Emergency_blood';
+
 import FAQSection from '@/components/ui/home/faq';
 import Hero from '@/components/ui/home/Hero';
 import BloodDonationSection from '@/components/ui/home/how_It_Work';
@@ -13,8 +14,8 @@ const page = () => {
   return (
     <div>
       <Hero></Hero>
-      <BloodGroupSection></BloodGroupSection>
-      <Emergency_blood></Emergency_blood>
+    
+      <EmergencyRequests></EmergencyRequests>
       <WhyChooseBloodLink></WhyChooseBloodLink>
    <BloodDonationSection></BloodDonationSection>
       <FAQSection></FAQSection>

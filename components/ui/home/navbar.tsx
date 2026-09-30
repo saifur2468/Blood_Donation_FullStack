@@ -51,7 +51,7 @@ export default function Navbar() {
             <MdBloodtype />
           </div>
           <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">
-            BloodLink
+          LifeDrop
           </span>
         </Link>
 
