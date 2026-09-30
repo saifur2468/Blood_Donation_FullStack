@@ -1,230 +1,253 @@
 import React from "react";
-import { Heart, ShieldCheck, Users, Clock, ArrowRight } from "lucide-react";
-import { FaLinkedin, FaGithub, FaGlobe } from "react-icons/fa";
+import { ShieldCheck, Clock, Users, ArrowRight } from "lucide-react";
+import { FaHospital, FaTint, FaEye, FaRibbon } from "react-icons/fa";
 
-interface TeamMember {
+const BRAND = "BloodLink";
+
+/* ---------- Data ---------- */
+
+interface WorkItem {
   id: number;
-  name: string;
-  role: string;
-  image: string;
-  github: string;
-  linkedin: string;
+  title: string;
+  channels: string[];
+  image: string; // put your own images in /public/images/
+  href: string;
+  icon: React.ReactNode;
+  card: string; // card background gradient
+  button: string; // button colors
 }
 
-const TEAM_MEMBERS: TeamMember[] = [
+const OUR_WORKS: WorkItem[] = [
   {
     id: 1,
-    name: "Saifur Rahman",
-    role: "Lead Volunteer Coordinator",
-    image: "/img/saif.JPG",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    title: "Blood Donation Program",
+    channels: ["Website", "Facebook Group", "Excel Database", "Call Center"],
+    image: "/img/blooddonationprogram11.jpg",
+   
+    icon: <FaTint className="h-10 w-10 text-rose-600" />,
+    card: "from-white via-rose-50/60 to-rose-100",
+    button: "bg-rose-700 hover:bg-rose-800 focus-visible:outline-rose-700",
   },
   {
     id: 2,
-    name: "Dr. Farhana Ahmed",
-    role: "Medical Volunteer & Advisor",
-    image: "/img/saif.JPG",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    title: "Eye Donation Program",
+    channels: ["Website", "Facebook Group"],
+    image: "/img/fgkl.jpg",
+   
+    icon: <FaEye className="h-10 w-10 text-emerald-600" />,
+    card: "from-white via-emerald-50/60 to-emerald-100",
+    button: "bg-emerald-600 hover:bg-emerald-700 focus-visible:outline-emerald-600",
   },
   {
     id: 3,
-    name: "Imran Hossain",
-    role: "Emergency Blood Volunteer",
-    image: "/img/saif.JPG",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    title: "Cancer Awareness",
+    channels: ["Website"],
+    image: "/img/fgkl.jpg",
+   
+    icon: <FaRibbon className="h-10 w-10 text-sky-600" />,
+    card: "from-white via-sky-50/60 to-sky-100",
+    button: "bg-sky-700 hover:bg-sky-800 focus-visible:outline-sky-700",
   },
 ];
 
 const HOSPITALS = [
-  "Dhaka Medical College Hospital",
-  "Square Hospital",
-  "Apollo Hospitals Dhaka",
-  "United Hospital",
-  "Evercare Hospital",
-  "Ibn Sina Hospital",
-  "Chittagong Medical College",
+  { name: "Dhaka Medical College Hospital", location: "Dhaka" },
+  { name: "Square Hospital", location: "Dhaka" },
+  { name: "Apollo Hospitals Dhaka", location: "Dhaka" },
+  { name: "United Hospital", location: "Dhaka" },
+  { name: "Evercare Hospital", location: "Dhaka" },
+  { name: "Ibn Sina Hospital", location: "Dhaka" },
+  { name: "Chittagong Medical College", location: "Chittagong" },
 ];
+
+const FEATURES = [
+  {
+    icon: <ShieldCheck className="h-5 w-5" />,
+    title: "Verified donors",
+    text: "Every donor profile is checked before it goes live.",
+  },
+  {
+    icon: <Clock className="h-5 w-5" />,
+    title: "24/7 support",
+    text: "Emergency requests are broadcast to donors instantly.",
+  },
+];
+
+/* ---------- Page ---------- */
 
 export default function AboutPage() {
   return (
-    <main className="bg-stone-50 min-h-screen py-16 font-sans">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-        
-        {/* 1. TOP ABOUT SECTION (Left Image, Right Text) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Side: Image */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-stone-100 bg-white aspect-[4/3] group">
+    <main className="min-h-screen bg-stone-50 py-16 font-sans text-stone-900 sm:py-20">
+      <div className="mx-auto max-w-6xl space-y-24 px-4 sm:px-6 lg:px-8">
+        {/* ===== 1. About ===== */}
+        <section className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+          {/* Image */}
+          <div className="relative lg:col-span-6">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-lg">
               <img
                 src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?q=80&w=1000&auto=format&fit=crop"
-                alt="Blood Donation Camp"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                alt="Blood donation camp"
+                className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent flex items-end p-6">
-                <div className="text-white">
-                  <p className="text-xs font-bold uppercase tracking-widest text-rose-400 mb-1">Humanitarian Mission</p>
-                  <p className="text-lg font-extrabold">Every drop counts, every donor is a hero.</p>
-                </div>
+              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-stone-950/70 via-transparent to-transparent p-6">
+                <p className="text-lg font-semibold text-white">
+                  Every drop counts, every donor is a hero.
+                </p>
               </div>
             </div>
 
-            {/* Floating Stats Card */}
-            <div className="absolute -bottom-6 -right-6 sm:right-6 bg-white border border-stone-100 rounded-2xl p-4 shadow-lg hidden sm:flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 font-bold">
-                <Users className="w-6 h-6" />
+            <div className="absolute -bottom-6 right-6 hidden items-center gap-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-lg sm:flex">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-600">
+                <Users className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-xl font-black text-stone-900">10,000+</p>
-                <p className="text-xs text-stone-500 font-medium">Active Donors Nationwide</p>
+                <p className="text-xl font-bold leading-none">10,000+</p>
+                <p className="mt-1 text-xs text-stone-500">Active donors nationwide</p>
               </div>
             </div>
           </div>
 
-          {/* Right Side: Text & Content */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5 fill-rose-600" />
-              About BloodLink
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
-              Bridging the Gap Between Donors and Patients
+          {/* Text */}
+          <div className="space-y-6 lg:col-span-6">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+              Bridging the gap between donors and patients
             </h1>
 
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-              BloodLink is a trusted community-driven platform dedicated to connecting voluntary blood donors with individuals in urgent medical need. We make finding and donating blood fast, secure, and transparent.
-            </p>
-
-            {/* Feature Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600 shrink-0 mt-0.5">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-stone-900 text-sm">Verified Donors</h3>
-                  <p className="text-xs text-stone-500 mt-0.5">100% genuine and verified donor profiles.</p>
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600 shrink-0 mt-0.5">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-stone-900 text-sm">24/7 Support</h3>
-                  <p className="text-xs text-stone-500 mt-0.5">Instant emergency broadcast system.</p>
-                </div>
-              </div>
+            <div className="max-w-prose space-y-4 text-[15px] leading-relaxed text-stone-600">
+              <p>
+                {BRAND} was launched on January 24, 2013, with a simple motto: “Donate blood:
+                save people and be saved.” Its main goal is to maintain a database of blood
+                donors, so that anyone can contact a donor directly when a critically ill patient
+                needs blood.
+              </p>
+              <p>
+                Donors register on the site, and people in need search the platform to find a
+                match. Blood cannot be manufactured; only another human being can give it. Yet
+                many people still lose their lives every year for lack of blood in an emergency.
+                With awareness among adults, that demand can be met.
+              </p>
+              <p>
+                If you are willing to donate, please register. Patients who need blood urgently
+                will be able to find you.
+              </p>
             </div>
 
-            {/* Call to Actions */}
-            <div className="pt-4 flex items-center gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {FEATURES.map((f) => (
+                <div
+                  key={f.title}
+                  className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white p-4"
+                >
+                  <div className="mt-0.5 shrink-0 rounded-xl bg-rose-50 p-2.5 text-rose-600">
+                    {f.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold">{f.title}</h3>
+                    <p className="mt-0.5 text-xs text-stone-500">{f.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
-                href="/donors"
-                className="px-6 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-full shadow-md shadow-rose-600/20 transition-all duration-200 flex items-center gap-2"
+                href="/FindDonor"
+                className="inline-flex items-center gap-2 rounded-full bg-rose-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
               >
-                Find Donors
-                <ArrowRight className="w-4 h-4" />
+                Find donors
+                <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="/contact"
-                className="px-6 py-3.5 bg-white hover:bg-stone-100 text-stone-800 border border-stone-300 font-semibold text-sm rounded-full transition-all duration-200 shadow-sm"
+                className="inline-flex items-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500"
               >
-                Contact Us
+                Contact us
               </a>
             </div>
-
           </div>
+        </section>
 
-        </div>
-
-        {/* 2. HOSPITAL PARTNERS / MARQUEE SECTION */}
-        <div className="">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-stone-400 mb-6">
-            Trusted & Associated Partner Hospitals
-          </p>
-          <div className="flex relative w-full overflow-hidden">
-            <div className="animate-marquee flex gap-8 items-center">
-              {HOSPITALS.concat(HOSPITALS).map((hospital, index) => (
-                <div key={index} className="flex items-center gap-2 text-stone-700 font-bold text-base sm:text-lg bg-stone-50 px-5 py-3 rounded-2xl border border-stone-100 shrink-0">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                  {hospital}
+        {/* ===== 2. Partner hospitals ===== */}
+        <section aria-labelledby="partners-heading">
+          <h2
+            id="partners-heading"
+            className="mb-6 text-center text-2xl font-medium text-red-600"
+          >
+            Trusted partner hospitals
+          </h2>
+          <div className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="flex animate-marquee items-center gap-4">
+              {HOSPITALS.concat(HOSPITALS).map((h, i) => (
+                <div
+                  key={i}
+                  className="flex shrink-0 items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-3"
+                >
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+                    <FaHospital className="text-sm" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold leading-tight">{h.name}</p>
+                    <p className="text-xs text-stone-400">{h.location}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* 3. OUR TEAM / VOLUNTEER SECTION */}
-        <div>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold uppercase tracking-wider">
-              Our Volunteers
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-red-600 tracking-tight mt-3">
-              Meet the Heroes Behind BloodLink
+        {/* ===== 3. Our work ===== */}
+        <section aria-labelledby="work-heading">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <h2
+              id="work-heading"
+              className="text-3xl font-bold tracking-tight sm:text-4xl"
+            >
+              Our work
             </h2>
-            <p className="mt-2 text-stone-600 text-sm sm:text-base">
-              Passionate individuals working around the clock to ensure safe and instant blood donation support.
+            <p className="mt-3 text-stone-600">
+              The programs we run to support communities and make emergency care easier to
+              reach.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TEAM_MEMBERS.map((member) => (
-              <div
-                key={member.id}
-                className="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group"
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {OUR_WORKS.map((work) => (
+              <article
+                key={work.id}
+                className={`flex flex-col rounded-3xl border border-white bg-gradient-to-b ${work.card} p-5 shadow-sm ring-1 ring-stone-200/60`}
               >
-                <div className="w-28 h-28 rounded-full overflow-hidden mb-5 border-4 border-rose-50 shadow-inner group-hover:scale-105 transition-transform duration-300">
+                {/* Image */}
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl border-2 border-white bg-stone-100 shadow-sm">
                   <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
+                    src={work.image}
+                    alt={work.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
                   />
                 </div>
 
-                <h3 className="text-lg font-bold text-stone-900 mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-xs font-semibold text-rose-600 mb-4">
-                  {member.role}
-                </p>
-
-                {/* Social Links */}
-                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-stone-100 w-full justify-center">
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-stone-100 hover:bg-rose-50 hover:text-rose-600 text-stone-600 flex items-center justify-center transition-all"
-                  >
-                    <FaGithub className="text-sm" />
-                  </a>
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-stone-100 hover:bg-rose-50 hover:text-rose-600 text-stone-600 flex items-center justify-center transition-all"
-                  >
-                    <FaLinkedin className="text-sm" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-stone-100 hover:bg-rose-50 hover:text-rose-600 text-stone-600 flex items-center justify-center transition-all"
-                  >
-                    <FaGlobe className="text-sm" />
-                  </a>
+                {/* Content */}
+                <div className="flex flex-1 items-start gap-4 px-2 pb-2 pt-6">
+                  <div className="shrink-0" aria-hidden="true">
+                    {work.icon}
+                  </div>
+                  <div className="flex min-h-full flex-1 flex-col">
+                    <h3 className="text-lg font-semibold leading-snug">{work.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-stone-600">
+                      {work.channels.join(" | ")}
+                    </p>
+                    <a
+                      
+                      className={`mt-4 inline-flex w-fit items-center rounded-md px-5 py-2 text-sm font-semibold text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${work.button}`}
+                    >
+                      Read more
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
-
+        </section>
       </div>
     </main>
   );

@@ -63,7 +63,7 @@ export default function RegisterPage() {
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-100">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Create Account 🚀</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Create Account </h2>
           <p className="text-slate-600 text-sm">Join our blood donation platform</p>
         </div>
 
@@ -162,7 +162,7 @@ export default function RegisterPage() {
               disabled={isSubmitting}
               className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-red-200 disabled:opacity-50"
             >
-              {isSubmitting ? "Creating Account..." : "✨ Register"}
+              {isSubmitting ? "Creating Account..." : " Register"}
             </button>
           </div>
         </form>

@@ -48,7 +48,7 @@ export default function WhyChooseBloodLink() {
           WHY CHOOSE US
         </span> */}
         <h2 className="text-xl md:text-5xl  text-gray-900 mb-4 tracking-tight">
-          Why Choose BloodLink?
+          Why Choose LifeDrop?
         </h2>
         <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
           Everything you need to bridge the gap between blood donors and patients in times of urgent need.

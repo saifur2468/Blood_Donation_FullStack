@@ -96,7 +96,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-sm font-semibold text-stone-800">Head Office</p>
                 <p className="text-sm text-stone-600 mt-0.5 leading-snug">
-                  Barak Polytechnic, Bangladesh
+                  Shafipur Bazar, Kaliyakoir,Gazipur
                 </p>
               </div>
             </div>

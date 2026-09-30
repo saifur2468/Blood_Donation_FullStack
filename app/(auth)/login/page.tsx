@@ -105,7 +105,7 @@ export default function LoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-100">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back 👋</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back </h2>
           <p className="text-slate-600 text-sm">Login to your account</p>
         </div>
 
@@ -138,7 +138,7 @@ export default function LoginPage() {
             disabled={isSubmitting}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-red-200 disabled:opacity-50"
           >
-            {isSubmitting ? "Logging in..." : "🔐 Login"}
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
 
@@ -149,14 +149,14 @@ export default function LoginPage() {
 
         {/* One-Click Demo Login Section */}
         <div>
-          <p className="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">🚀 Quick Demo Login</p>
+          <p className="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3"> Quick Demo Login</p>
           <div className="grid grid-cols-2 gap-3 mb-3">
             <button
               type="button"
               onClick={() => handleDemoLogin("ADMIN")}
               className="bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
             >
-              <div className="text-sm font-bold text-slate-800">👨‍💼 Admin</div>
+              <div className="text-sm font-bold text-slate-800">  Admin</div>
               <span className="text-xs text-red-600 font-medium">Demo Login</span>
             </button>
 
@@ -165,7 +165,7 @@ export default function LoginPage() {
               onClick={() => handleDemoLogin("PATIENT")}
               className="bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
             >
-              <div className="text-sm font-bold text-slate-800">👤 Patient</div>
+              <div className="text-sm font-bold text-slate-800"> Patient</div>
               <span className="text-xs text-red-600 font-medium">Demo Login</span>
             </button>
           </div>
@@ -175,7 +175,7 @@ export default function LoginPage() {
             onClick={() => handleDemoLogin("donor")}
             className="w-full bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
           >
-            <div className="text-sm font-bold text-slate-800">🛠️ donor</div>
+            <div className="text-sm font-bold text-slate-800"> donor</div>
             <span className="text-xs text-red-600 font-medium">Demo Login</span>
           </button>
         </div>

@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { MdBloodtype } from "react-icons/md";
 
 type TextCard = {
   kind: "text";
@@ -25,7 +26,7 @@ const items: (TextCard | ImageCard)[] = [
       "Someone in your community may need blood when you least expect it.",
       "Regular donation can be a healthy and rewarding habit for eligible donors.",
     ],
-    href: "/why-donate",
+ 
     variant: "red",
   },
   {
@@ -42,7 +43,7 @@ const items: (TextCard | ImageCard)[] = [
       "Weight and other eligibility requirements may apply.",
       "Donation frequency depends on local blood donation guidelines.",
     ],
-    href: "/who-can-donate",
+  
     variant: "red",
   },
   {
@@ -58,7 +59,7 @@ const items: (TextCard | ImageCard)[] = [
       "Your body naturally replaces the donated blood over time.",
       "Eligibility for people with certain conditions depends on medical guidance.",
     ],
-    href: "/myths",
+   
     variant: "dark",
   },
   {
@@ -115,7 +116,7 @@ export default function BloodDonationSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70" />
 
                 <div className="absolute bottom-5 left-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-sm text-[#e0294f] shadow-md">
-                  🩸
+                   <MdBloodtype/>
                 </div>
               </div>
             ) : (
@@ -160,7 +161,7 @@ export default function BloodDonationSection() {
 
                 {/* Read More */}
                 <Link
-                  href={item.href}
+                  href={item}
                   className={`relative z-10 mt-7 inline-flex w-fit items-center gap-3 border-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0294f] ${
                     btnVariants[item.variant]
                   }`}
