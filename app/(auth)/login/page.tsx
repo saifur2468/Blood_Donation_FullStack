@@ -26,10 +26,18 @@ export default function LoginPage() {
   });
 
   // Role onujayi redirect
+  // const redirectByRole = (role: string) => {
+  //   if (role === "ADMIN") router.push("/admin");
+  //   else if (role === "PROVIDER") router.push("/provider/dashboard");
+  //   else router.push("/");
+  // };
+
+
+  // Role onujayi correct redirect path set kore din
   const redirectByRole = (role: string) => {
-    if (role === "ADMIN") router.push("/admin");
-    else if (role === "PROVIDER") router.push("/provider/dashboard");
-    else router.push("/");
+    if (role === "ADMIN") router.push("/dashboard/admin"); // Jodi admin dashboard /dashboard/admin hoy
+    else if (role === "donor") router.push("/dashboard/donor"); // Jodi provider dashboard /dashboard/provider hoy
+    else router.push("/dashboard"); // Patient ba default dashboard
   };
 
   const onSubmit = async (data: LoginFormValues) => {
@@ -164,10 +172,10 @@ export default function LoginPage() {
 
           <button
             type="button"
-            onClick={() => handleDemoLogin("PROVIDER")}
+            onClick={() => handleDemoLogin("donor")}
             className="w-full bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
           >
-            <div className="text-sm font-bold text-slate-800">🛠️ Provider</div>
+            <div className="text-sm font-bold text-slate-800">🛠️ donor</div>
             <span className="text-xs text-red-600 font-medium">Demo Login</span>
           </button>
         </div>

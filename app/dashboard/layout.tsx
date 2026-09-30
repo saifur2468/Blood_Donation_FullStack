@@ -21,7 +21,7 @@ import {
   Bell,
   Search,
 } from "lucide-react";
-import { FaChartPie, FaCogs, FaFileAlt, FaListAlt, FaRegFileAlt, FaShieldAlt, FaUser } from "react-icons/fa";
+import { FaChartPie, FaCogs, FaCreditCard, FaFileAlt, FaFileMedical, FaListAlt, FaPlusCircle, FaRegFileAlt, FaShieldAlt, FaUser } from "react-icons/fa";
 
 export default function DashboardLayout({
   children,
@@ -51,54 +51,90 @@ export default function DashboardLayout({
   // Role onujayi route gula define kora
   const getSidebarLinks = () => {
     switch (userRole) {
-     case "ADMIN":
-  return [
-    {
-      name: "overView",
-      href: "/dashboard/admin",
-      icon: FaChartPie,
-    },
-    {
-      name: "Users",
-      href: "/dashboard/admin/users",
-      icon: FaUser,
-    },
-    {
-      name: "Roles",
-      href: "/dashboard/admin/roles",
-      icon: FaShieldAlt,
-    },
-    {
-      name: "Reports",
-      href: "/dashboard/admin/reports",
-      icon: FaRegFileAlt,
-    },
-    {
-      name: "Requests",
-      href: "/dashboard/admin/requests",
-      icon: FaListAlt,
-    },
-    {
-      name: "Audit Logs",
-      href: "/dashboard/admin/audit-logs",
-      icon: FaCogs,
-    },
-  ];
+      case "ADMIN":
+        return [
+          {
+            name: "overView",
+            href: "/dashboard/admin",
+            icon: FaChartPie,
+          },
+          {
+            name: "Users",
+            href: "/dashboard/admin/users",
+            icon: FaUser,
+          },
+          {
+            name: "Roles",
+            href: "/dashboard/admin/roles",
+            icon: FaShieldAlt,
+          },
+          {
+            name: "Reports",
+            href: "/dashboard/admin/reports",
+            icon: FaRegFileAlt,
+          },
+          {
+            name: "Requests",
+            href: "/dashboard/admin/requests",
+            icon: FaListAlt,
+          },
+          {
+            name: "Audit Logs",
+            href: "/dashboard/admin/audit-logs",
+            icon: FaCogs,
+          },
+        ];
       case "PATIENT":
         return [
-          { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-          { name: "My Blood Requests", href: "/dashboard/patient/my-requests", icon: FileText },
-          { name: "Create Request", href: "/dashboard/patient/create-request", icon: PlusCircle },
-          { name: "Payment History", href: "/dashboard/patient/payments", icon: CreditCard },
-          { name: "Payment Confirm", href: "/dashboard/patient/payment-confirm", icon: CreditCard },
-          { name: "My Profile", href: "/dashboard/profile", icon: User },
+          {
+            name: 'Dashboard',
+            href: '/dashboard',
+            icon: FaChartPie,
+          },
+          {
+            name: 'My Requests',
+            href: '/dashboard/patient/myrequest', // Matching folder: patient/myrequest
+            icon: FaFileMedical,
+          },
+          {
+            name: 'Create Request',
+            href: '/dashboard/patient/createbloodrequests', // Matching folder: patient/createbloodrequests
+            icon: FaPlusCircle,
+          },
+          {
+            name: 'Payment History',
+            href: '/dashboard/patient/payment', // Matching folder: patient/payment
+            icon: FaCreditCard,
+          },
+          {
+            name: 'My Profile',
+            href: '/dashboard/patient/profile', // Matching folder: patient/profile
+            icon: FaUser,
+          },
+          {
+            name: 'Payment Create',
+            href: '/dashboard/patient/payment/create', // Corrected path (payment er vitore create)
+            icon: FaCreditCard,
+          },
         ];
       case "DONOR":
         return [
-          { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-          { name: "Patient Requests", href: "/dashboard/donor/patient-requests", icon: HeartHandshake },
-          { name: "Update Profile", href: "/dashboard/profile/update", icon: Settings },
-          { name: "My Profile", href: "/dashboard/profile", icon: User },
+
+        {
+      name: 'Overview',
+      href: '/dashboard/donor',
+      icon: FaUser,
+    },
+    {
+      name: 'Patient Requests',
+      href: '/dashboard/donor/requests',
+      icon: FaUser,
+    },
+    {
+      name: 'Update Profile',
+      href: '/dashboard/donor/profile',
+      icon: FaUser,
+    },
         ];
       default:
         return [{ name: "Dashboard", href: "/dashboard", icon: LayoutDashboard }];
@@ -109,7 +145,7 @@ export default function DashboardLayout({
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
-      
+
       {/* Mobile Sidebar Backdrop */}
       {sidebarOpen && (
         <div
@@ -120,9 +156,8 @@ export default function DashboardLayout({
 
       {/* Sidebar (Image er moto clean white background) */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* User Info Profile Box at Top of Sidebar */}
         <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-6">
@@ -155,11 +190,10 @@ export default function DashboardLayout({
                 key={link.name}
                 href={link.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-xs font-bold transition-all ${
-                  isActive
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                }`}
+                className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-xs font-bold transition-all ${isActive
+                  ? "bg-slate-900 text-white shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  }`}
               >
                 <Icon className={`h-4 w-4 ${isActive ? "text-white" : "text-slate-400"}`} />
                 {link.name}
@@ -182,7 +216,7 @@ export default function DashboardLayout({
 
       {/* Main Content Wrapper */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        
+
         {/* Top Bar (Image er moto search, notifications & actions) */}
         <header className="flex h-20 items-center justify-between border-b border-slate-100 bg-white px-6 lg:px-8">
           <div className="flex items-center gap-4">
@@ -193,7 +227,7 @@ export default function DashboardLayout({
               <Menu className="h-6 w-6" />
             </button>
             <h2 className="text-xl font-black text-center  text-red-600">
-             Here's what's happening with your blood donation platform today <span className="text-slate-700 font-semibold"></span>
+              Here's what's happening with your blood donation platform today <span className="text-slate-700 font-semibold"></span>
             </h2>
           </div>
 
