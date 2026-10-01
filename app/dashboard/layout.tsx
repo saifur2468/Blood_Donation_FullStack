@@ -69,7 +69,7 @@ export default function DashboardLayout({
           { name: "Create Request", href: "/dashboard/patient/createbloodrequests", icon: FaPlusCircle },
           { name: "Payment History", href: "/dashboard/patient/payment", icon: FaCreditCard },
           { name: "My Profile", href: "/dashboard/patient/profile", icon: FaUser },
-          { name: "Payment Create", href: "/dashboard/patient/payment/create", icon: FaCreditCard },
+          
         ];
       case "DONOR":
         return [
@@ -179,25 +179,20 @@ export default function DashboardLayout({
             >
               <Menu className="h-6 w-6" />
             </button>
-            <div className="relative w-full max-w-sm">
-              <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search or type a command"
-                className="w-full rounded-xl bg-white py-2.5 pl-10 pr-4 text-sm text-slate-700 shadow-sm outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-blue-200"
-              />
+            <div className="w-full">
+              <h1 className="text-black  font-semibold">Welcome to LifeDrop</h1>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            {userRole === "PATIENT" && (
+            {/* {userRole === "PATIENT" && (
               <Link
                 href="/dashboard/patient/create-request"
                 className="hidden items-center rounded-full bg-blue-500 px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-600 sm:inline-flex"
               >
                 + Create Request
               </Link>
-            )}
+            )} */}
             <button className="text-slate-500 transition hover:text-slate-900" aria-label="Settings">
               <Settings className="h-5 w-5" />
             </button>

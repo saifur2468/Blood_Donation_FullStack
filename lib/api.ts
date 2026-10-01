@@ -21,11 +21,19 @@ export type BloodRequest = { id: string; bloodGroup: string; bagsNeeded: number;
 export type Report = { totalUsers: number; totalDonors: number; totalPatients: number; totalBloodRequests: number; pendingRequests: number; approvedRequests: number };
 export type AuditLog = { id: string; action: string; details: string; createdAt: string; user: { fullName: string; email: string } };
 
+// `api`-ke direct function (req) ebong object duivabei kaj korar jonno Object.assign use kora holo
+export const api = Object.assign(req, {
+    get: <T>(path: string) => req<T>(path),
+    post: <T>(path: string, body: any) => req<T>(path, { method: "POST", body: JSON.stringify(body) }),
+    patch: <T>(path: string, body?: any) => req<T>(path, { method: "PATCH", body: body ? JSON.stringify(body) : undefined }),
+    delete: <T>(path: string) => req<T>(path, { method: "DELETE" }),
+});
+
 export const adminApi = {
     users: () => req<AdminUser[]>("/admin/users"),
     updateRole: (id: string, role: Role) => req(`/admin/users/${id}/role`, { method: "PATCH", body: JSON.stringify({ role }) }),
     blockUser: (id: string) => req(`/admin/users/${id}/block`, { method: "PATCH" }),
-    bloodRequests: () => req<BloodRequest[]>("/admin/blood-requests"), // backend-e list endpoint lagbe
+    bloodRequests: () => req<BloodRequest[]>("/admin/blood-requests"),
     updateRequestStatus: (id: string, status: "VERIFIED" | "REJECTED") =>
         req(`/admin/blood-requests/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
     reports: () => req<Report>("/admin/reports"),
