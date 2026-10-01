@@ -126,7 +126,7 @@ export default function LoginPage() {
             <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
             <input
               type="password"
-              placeholder="••••••••"
+              placeholder="Enter Your Password"
               {...register("password")}
               className="w-full border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
             />

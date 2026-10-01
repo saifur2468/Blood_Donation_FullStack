@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { MdBloodtype } from "react-icons/md";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { showToast } from "@/components/ui/toast";
+import GoogleTranslate from "@/components/GoogleTranslate";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,11 +74,14 @@ export default function Navbar() {
                 {isActive && (
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 rounded-full"></span>
                 )}
+                
               </Link>
+              
             );
+            
           })}
         </nav>
-
+<GoogleTranslate></GoogleTranslate>
         {/* Desktop Action Buttons / User Profile */}
         <div className="hidden md:flex items-center gap-3">
           {isLoggedIn ? (
