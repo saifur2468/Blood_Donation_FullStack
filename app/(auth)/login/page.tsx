@@ -103,86 +103,86 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-100">
+      <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-2xl shadow-xl dark:shadow-black/40 p-8 border border-slate-100 dark:border-slate-800">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back </h2>
-          <p className="text-slate-600 text-sm">Login to your account</p>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">Welcome Back </h2>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Login to your account</p>
         </div>
 
         {/* Regular Login Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
             <input
               type="email"
               placeholder="user@example.com"
               {...register("email")}
-              className="w-full border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+              className="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
             />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+            {errors.email && <p className="text-red-500 dark:text-red-400 text-xs mt-1">{errors.email.message}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Password</label>
             <input
               type="password"
               placeholder="Enter Your Password"
               {...register("password")}
-              className="w-full border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+              className="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
             />
-            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+            {errors.password && <p className="text-red-500 dark:text-red-400 text-xs mt-1">{errors.password.message}</p>}
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-red-200 disabled:opacity-50"
+            className="w-full bg-red-600 hover:bg-red-700 dark:hover:bg-red-500 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-red-200 dark:shadow-none disabled:opacity-50"
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
 
         <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
-          <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-slate-500">─── OR ───</span></div>
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
+          <div className="relative flex justify-center text-xs uppercase"><span className="bg-white dark:bg-slate-900 px-2 text-slate-500 dark:text-slate-400">─── OR ───</span></div>
         </div>
 
         {/* One-Click Demo Login Section */}
         <div>
-          <p className="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3"> Quick Demo Login</p>
+          <p className="text-center text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3"> Quick Demo Login</p>
           <div className="grid grid-cols-2 gap-3 mb-3">
             <button
               type="button"
               onClick={() => handleDemoLogin("ADMIN")}
-              className="bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
+              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 rounded-xl text-center transition-colors"
             >
-              <div className="text-sm font-bold text-slate-800">  Admin</div>
-              <span className="text-xs text-red-600 font-medium">Demo Login</span>
+              <div className="text-sm font-bold text-slate-800 dark:text-slate-100">  Admin</div>
+              <span className="text-xs text-red-600 dark:text-red-400 font-medium">Demo Login</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleDemoLogin("PATIENT")}
-              className="bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
+              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 rounded-xl text-center transition-colors"
             >
-              <div className="text-sm font-bold text-slate-800"> Patient</div>
-              <span className="text-xs text-red-600 font-medium">Demo Login</span>
+              <div className="text-sm font-bold text-slate-800 dark:text-slate-100"> Patient</div>
+              <span className="text-xs text-red-600 dark:text-red-400 font-medium">Demo Login</span>
             </button>
           </div>
 
           <button
             type="button"
             onClick={() => handleDemoLogin("donor")}
-            className="w-full bg-slate-100 hover:bg-slate-200 border border-slate-200 p-3 rounded-xl text-center transition-colors"
+            className="w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 rounded-xl text-center transition-colors"
           >
-            <div className="text-sm font-bold text-slate-800"> donor</div>
-            <span className="text-xs text-red-600 font-medium">Demo Login</span>
+            <div className="text-sm font-bold text-slate-800 dark:text-slate-100"> donor</div>
+            <span className="text-xs text-red-600 dark:text-red-400 font-medium">Demo Login</span>
           </button>
         </div>
 
-        <p className="text-center text-sm text-slate-600 mt-6">
+        <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
           Don't have an account?{" "}
-          <Link href="/Register" className="text-red-600 font-semibold hover:underline">
+          <Link href="/Register" className="text-red-600 dark:text-red-400 font-semibold hover:underline">
             Register here
           </Link>
         </p>
