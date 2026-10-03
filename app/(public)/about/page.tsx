@@ -23,30 +23,33 @@ const OUR_WORKS: WorkItem[] = [
     title: "Blood Donation Program",
     channels: ["Website", "Facebook Group", "Excel Database", "Call Center"],
     image: "/img/blooddonationprogram11.jpg",
-   
-    icon: <FaTint className="h-10 w-10 text-rose-600" />,
-    card: "from-white via-rose-50/60 to-rose-100",
-    button: "bg-rose-700 hover:bg-rose-800 focus-visible:outline-rose-700",
+
+    icon: <FaTint className="h-10 w-10 text-rose-600 dark:text-rose-400" />,
+    card: "from-white via-rose-50/60 to-rose-100 dark:from-stone-900 dark:via-rose-950/40 dark:to-rose-950/70",
+    button:
+      "bg-rose-700 hover:bg-rose-800 focus-visible:outline-rose-700 dark:bg-rose-600 dark:hover:bg-rose-500 dark:focus-visible:outline-rose-400",
   },
   {
     id: 2,
     title: "Eye Donation Program",
     channels: ["Website", "Facebook Group"],
     image: "/img/fgkl.jpg",
-   
-    icon: <FaEye className="h-10 w-10 text-emerald-600" />,
-    card: "from-white via-emerald-50/60 to-emerald-100",
-    button: "bg-emerald-600 hover:bg-emerald-700 focus-visible:outline-emerald-600",
+
+    icon: <FaEye className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />,
+    card: "from-white via-emerald-50/60 to-emerald-100 dark:from-stone-900 dark:via-emerald-950/40 dark:to-emerald-950/70",
+    button:
+      "bg-emerald-600 hover:bg-emerald-700 focus-visible:outline-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 dark:focus-visible:outline-emerald-400",
   },
   {
     id: 3,
     title: "Cancer Awareness",
     channels: ["Website"],
     image: "/img/fgkl.jpg",
-   
-    icon: <FaRibbon className="h-10 w-10 text-sky-600" />,
-    card: "from-white via-sky-50/60 to-sky-100",
-    button: "bg-sky-700 hover:bg-sky-800 focus-visible:outline-sky-700",
+
+    icon: <FaRibbon className="h-10 w-10 text-sky-600 dark:text-sky-400" />,
+    card: "from-white via-sky-50/60 to-sky-100 dark:from-stone-900 dark:via-sky-950/40 dark:to-sky-950/70",
+    button:
+      "bg-sky-700 hover:bg-sky-800 focus-visible:outline-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 dark:focus-visible:outline-sky-400",
   },
 ];
 
@@ -77,13 +80,13 @@ const FEATURES = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-stone-50 py-16 font-sans text-stone-900 sm:py-20">
+    <main className="min-h-screen bg-stone-50 py-16 font-sans text-stone-900 dark:bg-stone-950 dark:text-stone-100 sm:py-20">
       <div className="mx-auto max-w-6xl space-y-24 px-4 sm:px-6 lg:px-8">
         {/* ===== 1. About ===== */}
         <section className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
           {/* Image */}
           <div className="relative lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-lg">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-lg dark:border-stone-800 dark:bg-stone-900 dark:shadow-black/40">
               <img
                 src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?q=80&w=1000&auto=format&fit=crop"
                 alt="Blood donation camp"
@@ -96,13 +99,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="absolute -bottom-6 right-6 hidden items-center gap-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-lg sm:flex">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-600">
+            <div className="absolute -bottom-6 right-6 hidden items-center gap-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-lg dark:border-stone-700 dark:bg-stone-900 dark:shadow-black/40 sm:flex">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400">
                 <Users className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xl font-bold leading-none">10,000+</p>
-                <p className="mt-1 text-xs text-stone-500">Active donors nationwide</p>
+                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  Active donors nationwide
+                </p>
               </div>
             </div>
           </div>
@@ -113,7 +118,7 @@ export default function AboutPage() {
               Bridging the gap between donors and patients
             </h1>
 
-            <div className="max-w-prose space-y-4 text-[15px] leading-relaxed text-stone-600">
+            <div className="max-w-prose space-y-4 text-[15px] leading-relaxed text-stone-600 dark:text-stone-300">
               <p>
                 {BRAND} was launched on January 24, 2013, with a simple motto: “Donate blood:
                 save people and be saved.” Its main goal is to maintain a database of blood
@@ -136,14 +141,14 @@ export default function AboutPage() {
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white p-4"
+                  className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-900"
                 >
-                  <div className="mt-0.5 shrink-0 rounded-xl bg-rose-50 p-2.5 text-rose-600">
+                  <div className="mt-0.5 shrink-0 rounded-xl bg-rose-50 p-2.5 text-rose-600 dark:bg-rose-950 dark:text-rose-400">
                     {f.icon}
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold">{f.title}</h3>
-                    <p className="mt-0.5 text-xs text-stone-500">{f.text}</p>
+                    <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">{f.text}</p>
                   </div>
                 </div>
               ))}
@@ -152,14 +157,14 @@ export default function AboutPage() {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="/FindDonor"
-                className="inline-flex items-center gap-2 rounded-full bg-rose-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+                className="inline-flex items-center gap-2 rounded-full bg-rose-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 dark:hover:bg-rose-500 dark:focus-visible:outline-rose-400"
               >
                 Find donors
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="/contact"
-                className="inline-flex items-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500"
+                className="inline-flex items-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800 dark:focus-visible:outline-stone-400"
               >
                 Contact us
               </a>
@@ -171,7 +176,7 @@ export default function AboutPage() {
         <section aria-labelledby="partners-heading">
           <h2
             id="partners-heading"
-            className="mb-6 text-center text-2xl font-medium text-red-600"
+            className="mb-6 text-center text-2xl font-medium text-red-600 dark:text-red-400"
           >
             Trusted partner hospitals
           </h2>
@@ -180,14 +185,14 @@ export default function AboutPage() {
               {HOSPITALS.concat(HOSPITALS).map((h, i) => (
                 <div
                   key={i}
-                  className="flex shrink-0 items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-3"
+                  className="flex shrink-0 items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-3 dark:border-stone-800 dark:bg-stone-900"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400">
                     <FaHospital className="text-sm" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold leading-tight">{h.name}</p>
-                    <p className="text-xs text-stone-400">{h.location}</p>
+                    <p className="text-xs text-stone-400 dark:text-stone-500">{h.location}</p>
                   </div>
                 </div>
               ))}
@@ -204,7 +209,7 @@ export default function AboutPage() {
             >
               Our work
             </h2>
-            <p className="mt-3 text-stone-600">
+            <p className="mt-3 text-stone-600 dark:text-stone-300">
               The programs we run to support communities and make emergency care easier to
               reach.
             </p>
@@ -214,10 +219,10 @@ export default function AboutPage() {
             {OUR_WORKS.map((work) => (
               <article
                 key={work.id}
-                className={`flex flex-col rounded-3xl border border-white bg-gradient-to-b ${work.card} p-5 shadow-sm ring-1 ring-stone-200/60`}
+                className={`flex flex-col rounded-3xl border border-white bg-gradient-to-b ${work.card} p-5 shadow-sm ring-1 ring-stone-200/60 dark:border-stone-800 dark:ring-stone-800`}
               >
                 {/* Image */}
-                <div className="aspect-[4/3] overflow-hidden rounded-2xl border-2 border-white bg-stone-100 shadow-sm">
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl border-2 border-white bg-stone-100 shadow-sm dark:border-stone-700 dark:bg-stone-800">
                   <img
                     src={work.image}
                     alt={work.title}
@@ -233,11 +238,11 @@ export default function AboutPage() {
                   </div>
                   <div className="flex min-h-full flex-1 flex-col">
                     <h3 className="text-lg font-semibold leading-snug">{work.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-stone-600">
+                    <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                       {work.channels.join(" | ")}
                     </p>
                     <a
-                      
+
                       className={`mt-4 inline-flex w-fit items-center rounded-md px-5 py-2 text-sm font-semibold text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${work.button}`}
                     >
                       Read more

@@ -103,18 +103,18 @@ const FindDonorsPage = () => {
   const currentDonors = donors.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">All Available Donors</h2>
+    <div className="max-w-7xl mx-auto px-4 py-8 dark:text-gray-100">
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">All Available Donors</h2>
 
       {/* Filter Section */}
-      <div className="bg-white p-4 rounded-xl shadow-md mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+      <div className="bg-white dark:bg-gray-900 dark:border dark:border-gray-800 p-4 rounded-xl shadow-md dark:shadow-black/40 mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
         {/* Blood Group Filter */}
         <div className="w-full md:w-1/2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Blood Group</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Blood Group</label>
           <select
             value={bloodGroup}
             onChange={(e) => setBloodGroup(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">All Blood Groups</option>
             <option value="O_POSITIVE">O+</option>
@@ -130,27 +130,27 @@ const FindDonorsPage = () => {
 
         {/* Location Filter */}
         <div className="w-full md:w-1/2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Location / City</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Location / City</label>
           <input
             type="text"
             placeholder="e.g. Dhaka, Gazipur"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
       </div>
 
       {/* Error */}
       {error && (
-        <div className="text-center py-4 mb-4 text-red-600 font-medium bg-red-50 rounded-lg">{error}</div>
+        <div className="text-center py-4 mb-4 text-red-600 dark:text-red-300 font-medium bg-red-50 dark:bg-red-950/50 rounded-lg">{error}</div>
       )}
 
       {/* Donors Grid */}
       {loading ? (
         <div className="text-center py-10 text-lg font-semibold">Loading donors...</div>
       ) : !error && donors.length === 0 ? (
-        <div className="text-center py-10 text-gray-500 font-semibold">
+        <div className="text-center py-10 text-gray-500 dark:text-gray-400 font-semibold">
           No donors found matching your criteria.
         </div>
       ) : (
@@ -159,17 +159,17 @@ const FindDonorsPage = () => {
             {currentDonors.map((donor, index) => (
               <div
                 key={donor.id ?? donor._id ?? index}
-                className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow flex flex-col justify-between"
+                className="bg-white dark:bg-gray-900 rounded-xl shadow-md dark:shadow-black/40 p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-shadow flex flex-col justify-between"
               >
                 <div>
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-gray-900">{donor.fullName}</h3>
-                    <span className="bg-red-100 text-red-700 font-bold px-3 py-1 rounded-full text-sm">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{donor.fullName}</h3>
+                    <span className="bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300 font-bold px-3 py-1 rounded-full text-sm">
                       {BLOOD_LABELS[donor.bloodGroup ?? ''] || donor.bloodGroup || 'N/A'}
                     </span>
                   </div>
 
-                  <div className="space-y-2 text-gray-600 text-sm">
+                  <div className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
                     <p>
                       <span className="font-semibold">Email:</span> {donor.email}
                     </p>
@@ -182,7 +182,7 @@ const FindDonorsPage = () => {
                     <p>
                       <span className="font-semibold">Status:</span>{' '}
                       <span
-                        className={donor.isAvailable ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}
+                        className={donor.isAvailable ? 'text-green-600 dark:text-green-400 font-medium' : 'text-red-600 dark:text-red-400 font-medium'}
                       >
                         {donor.isAvailable ? 'Available' : 'Not Available'}
                       </span>
@@ -192,7 +192,7 @@ const FindDonorsPage = () => {
 
                 <div className="mt-6">
                   <button 
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-red-600 hover:bg-red-700 dark:hover:bg-red-500 text-white font-medium py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!donor.phoneNumber}
                     onClick={() => {
                       if (donor.phoneNumber) {
@@ -215,7 +215,7 @@ const FindDonorsPage = () => {
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
               >
                 Previous
               </button>
@@ -226,8 +226,8 @@ const FindDonorsPage = () => {
                   onClick={() => setCurrentPage(page)}
                   className={`px-4 py-2 rounded-lg border font-medium text-sm transition-colors ${
                     currentPage === page
-                      ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-100'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+                      ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-100 dark:shadow-none'
+                      : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
                 >
                   {page}
@@ -237,7 +237,7 @@ const FindDonorsPage = () => {
               <button
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-sm"
               >
                 Next
               </button>

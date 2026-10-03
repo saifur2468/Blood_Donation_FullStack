@@ -2,6 +2,8 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { IoMdSunny } from 'react-icons/io';
+import { MdNightlightRound } from 'react-icons/md';
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -20,7 +22,7 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
       className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
     >
-      {isDark ? '☀️' : '🌙'}
+      {isDark ? <MdNightlightRound/>:<IoMdSunny />  }
     </button>
   );
 }
