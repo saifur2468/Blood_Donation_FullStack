@@ -26,7 +26,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[calc(100vh-72px)] overflow-hidden">
-      {/* Background Image - আগের মতোই আছে */}
+     
       <div
         className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
         style={{
@@ -90,7 +90,7 @@ export default function Hero() {
                 >
                   Join{" "}
                   <span className="font-semibold text-red-600">
-                    BloodLink
+               LifeDrop
                   </span>{" "}
                   today. We connect generous blood donors with patients facing medical emergencies. Every drop counts.
                 </motion.p>
@@ -139,7 +139,7 @@ export default function Hero() {
           >
             {/* Primary Button color updated to Red */}
             <a
-              href="/register" // Changed to registration
+              href="/Register" // Changed to registration
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-200 transition hover:-translate-y-0.5 hover:bg-red-700"
             >
               Register Now
@@ -150,13 +150,13 @@ export default function Hero() {
 
             {/* Secondary Button color updated */}
             <a
-              href="/requests" // Changed to view requests
+              href="/bloodrequest" // Changed to view requests
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-gray-700 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-700"
             >
               <span>
                 <Search className="w-4 h-4" /> {/* Search icon for finding requests */}
               </span>
-              Find Blood Requests
+              Create Blood Requests
             </a>
           </motion.div>
 

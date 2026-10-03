@@ -85,17 +85,17 @@ export default function TestimonialSection() {
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
   return (
-    <section className="relative overflow-hidden bg-slate-100 px-4 py-20 font-sans md:px-12 border-t border-slate-200">
+    <section className="relative overflow-hidden bg-slate-100 dark:bg-slate-900 px-4 py-20 font-sans md:px-12 border-t border-slate-200 dark:border-slate-800">
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-red-600">
+            <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
               SUCCESS STORIES & REVIEWS
             </span>
 
-            <h2 className="font-serif text-3xl font-normal italic text-gray-900 md:text-5xl">
+            <h2 className="font-serif text-3xl font-normal italic text-gray-900 dark:text-slate-100 md:text-5xl">
               What People Say
               <br />
               <span className="font-sans font-bold not-italic">
@@ -110,7 +110,7 @@ export default function TestimonialSection() {
               ref={prevRef}
               type="button"
               aria-label="Previous testimonial"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-400 text-xl transition-all duration-300 hover:border-red-600 hover:bg-red-600 hover:text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-400 dark:border-slate-600 text-gray-900 dark:text-slate-200 text-xl transition-all duration-300 hover:border-red-600 hover:bg-red-600 hover:text-white dark:hover:border-red-600 dark:hover:bg-red-600 dark:hover:text-white"
             >
               ←
             </button>
@@ -119,7 +119,7 @@ export default function TestimonialSection() {
               ref={nextRef}
               type="button"
               aria-label="Next testimonial"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-400 text-xl transition-all duration-300 hover:border-red-600 hover:bg-red-600 hover:text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-400 dark:border-slate-600 text-gray-900 dark:text-slate-200 text-xl transition-all duration-300 hover:border-red-600 hover:bg-red-600 hover:text-white dark:hover:border-red-600 dark:hover:bg-red-600 dark:hover:text-white"
             >
               →
             </button>
@@ -157,36 +157,36 @@ export default function TestimonialSection() {
         >
           {testimonialsData.map((item) => (
             <SwiperSlide key={item.id} className="h-auto">
-              <article className="relative flex min-h-[300px] h-full flex-col justify-between bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+              <article className="relative flex min-h-[300px] h-full flex-col justify-between bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
 
                 {/* Large Quote */}
-                <div className="pointer-events-none absolute right-4 top-2 select-none font-serif text-[150px] leading-none text-red-100 opacity-60">
+                <div className="pointer-events-none absolute right-4 top-2 select-none font-serif text-[150px] leading-none text-red-100 dark:text-red-900/30 opacity-60">
                   “
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10">
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="font-serif text-2xl font-bold text-red-600">
+                    <span className="font-serif text-2xl font-bold text-red-600 dark:text-red-400">
                       “
                     </span>
 
-                    <h3 className="text-xl font-bold text-gray-900">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100">
                       {item.title}
                     </h3>
                   </div>
 
-                  <p className="mb-8 text-sm leading-relaxed text-gray-700 md:text-base">
+                  <p className="mb-8 text-sm leading-relaxed text-gray-700 dark:text-slate-300 md:text-base">
                     {item.comment}
                   </p>
                 </div>
 
                 {/* User */}
                 <div className="relative z-10">
-                  <hr className="mb-6 border-gray-100" />
+                  <hr className="mb-6 border-gray-100 dark:border-slate-700" />
 
                   <div className="flex items-center gap-4">
-                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-red-200">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-red-200 dark:border-red-900/60">
                       <Image
                         src={item.avatar}
                         alt={`${item.name} profile`}
@@ -197,11 +197,11 @@ export default function TestimonialSection() {
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold text-gray-900 md:text-base">
+                      <h4 className="text-sm font-bold text-gray-900 dark:text-slate-100 md:text-base">
                         {item.name}
                       </h4>
 
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-red-600">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-red-600 dark:text-red-400">
                         {item.role}
                       </p>
                     </div>

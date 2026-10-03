@@ -4,14 +4,14 @@ import { MdBloodtype } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
+    <footer className="bg-slate-900 dark:bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-        
+
         {/* Brand Info */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">
-            <MdBloodtype />
+              <MdBloodtype />
             </div>
             <span className="text-xl font-bold text-white">LifeDrop</span>
           </div>
@@ -25,8 +25,8 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/" className="hover:text-red-500 transition-colors">Home</Link></li>
-            <li><Link href="/requests" className="hover:text-red-500 transition-colors">Blood Requests</Link></li>
-            <li><Link href="/donors" className="hover:text-red-500 transition-colors">Find Donors</Link></li>
+            <li><Link href="/bloodrequest" className="hover:text-red-500 transition-colors">Blood Requests</Link></li>
+            <li><Link href="/FindDonor" className="hover:text-red-500 transition-colors">Find Donors</Link></li>
             <li><Link href="/about" className="hover:text-red-500 transition-colors">About Us</Link></li>
           </ul>
         </div>
@@ -52,7 +52,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} BloodLink. All rights reserved. Developed with  for saving lives.
+        © {new Date().getFullYear()} LifeDrop. All rights reserved. Developed with ❤️ for saving lives.
       </div>
     </footer>
   );

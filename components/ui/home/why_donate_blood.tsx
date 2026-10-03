@@ -42,34 +42,34 @@ const features = [
 
 export default function WhyChooseBloodLink() {
   return (
-    <section className="py-20 px-4 md:px-8 ">
+    <section className="py-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto text-center mb-16">
         {/* <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-red-600">
           WHY CHOOSE US
         </span> */}
-        <h2 className="text-xl md:text-5xl  text-gray-900 mb-4 tracking-tight">
+        <h2 className="text-xl md:text-5xl text-gray-900 dark:text-slate-100 mb-4 tracking-tight">
           Why Choose LifeDrop?
         </h2>
-        <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
           Everything you need to bridge the gap between blood donors and patients in times of urgent need.
         </p>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((item, index) => (
-          <div 
-            key={index} 
-            className="bg-white border border-gray-200/80 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group"
+          <div
+            key={index}
+            className="bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-slate-800 rounded-3xl p-8 shadow-sm hover:shadow-xl dark:hover:shadow-red-950/20 transition-all duration-300 flex flex-col items-center text-center group"
           >
             {/* Icon Circle */}
-            <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+            <div className="w-16 h-16 rounded-2xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-red-600 dark:group-hover:bg-red-600 group-hover:text-white dark:group-hover:text-white transition-all duration-300">
               {item.icon}
             </div>
 
             {/* Text Content */}
-            <h3 className="text-xl font-bold text-gray-900 mb-1">{item.title}</h3>
-            <h4 className="text-xs font-bold text-red-600 mb-3 uppercase tracking-wider">{item.subtitle}</h4>
-            <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-1">{item.title}</h3>
+            <h4 className="text-xs font-bold text-red-600 dark:text-red-400 mb-3 uppercase tracking-wider">{item.subtitle}</h4>
+            <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">{item.description}</p>
           </div>
         ))}
       </div>

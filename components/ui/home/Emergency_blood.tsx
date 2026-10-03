@@ -3,8 +3,6 @@ import { FaPhoneAlt } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { AlertCircle, Clock, MapPin, PhoneCall, Heart } from "lucide-react";
 
-
-
 interface Patient {
   fullName: string;
   phoneNumber: string;
@@ -35,10 +33,10 @@ export default function EmergencyRequests() {
       try {
         setLoading(true);
         const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-        
+
         // Ekhane token thakle token sohit request pathano bhalo, nahole public endpoint hole emnitei asbe
         const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
-        
+
         const headers: HeadersInit = {
           "Content-Type": "application/json",
         };
@@ -49,7 +47,7 @@ export default function EmergencyRequests() {
         const res = await fetch(`${baseUrl}/api/v1/blood-request/pending-requests`, {
           headers,
         });
-        
+
         const result = await res.json();
         console.log("Homepage fetched requests:", result); // Browser console-e check korar jonno
 
@@ -59,7 +57,7 @@ export default function EmergencyRequests() {
             const urgency = req.urgency?.toUpperCase();
             return urgency === "CRITICAL" || urgency === "URGENT";
           });
-          
+
           setEmergencyRequests(filteredRequests.slice(0, 4));
         } else {
           setError("Failed to load requests data.");
@@ -89,12 +87,12 @@ export default function EmergencyRequests() {
     <section className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 border border-red-100">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 border border-red-100 dark:border-red-900/60">
             <AlertCircle className="w-3.5 h-3.5" />
             Emergency Broadcast
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Emergency Blood Requests</h2>
-          <p className="path-text text-slate-500 text-sm mt-2 font-medium">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Emergency Blood Requests</h2>
+          <p className="path-text text-slate-500 dark:text-slate-400 text-sm mt-2 font-medium">
             Immediate help needed. Contact the patient's representative directly to volunteer.
           </p>
         </div>
@@ -106,72 +104,71 @@ export default function EmergencyRequests() {
         </Link> */}
       </div>
 
-      <div className="bg-red-50/50 border border-red-200 rounded-2xl p-4 md:p-6 mb-8 flex items-start gap-4">
-        <div className="p-2 bg-red-100 text-red-600 rounded-full shrink-0">
+      <div className="bg-red-50/50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/60 rounded-2xl p-4 md:p-6 mb-8 flex items-start gap-4">
+        <div className="p-2 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full shrink-0">
           <AlertCircle className="w-5 h-5" />
         </div>
         <div>
-          <h4 className="text-red-700 font-extrabold text-sm mb-1 uppercase tracking-wide">Monetary Transactions Strictly Prohibited!</h4>
-          <p className="text-slate-600 text-xs leading-relaxed font-medium">
+          <h4 className="text-red-700 dark:text-red-400 font-extrabold text-sm mb-1 uppercase tracking-wide">Monetary Transactions Strictly Prohibited!</h4>
+          <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-medium">
             Blood donation is a completely voluntary and humanitarian service. Engaging in any financial transaction for blood is strictly forbidden. The LifeDrop family will not be held responsible or liable for any personal monetary transactions or disputes.
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-xs font-bold text-slate-500">Loading emergency requests...</div>
+        <div className="text-center py-12 text-xs font-bold text-slate-500 dark:text-slate-400">Loading emergency requests...</div>
       ) : emergencyRequests.length === 0 ? (
-        <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-xs font-semibold text-slate-500 shadow-sm">
+        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-xs font-semibold text-slate-500 dark:text-slate-400 shadow-sm">
           No critical or urgent blood requests at the moment.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {emergencyRequests.map((req) => (
-            <div key={req.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative hover:shadow-md transition hover:border-red-200">
-              
+            <div key={req.id} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col relative hover:shadow-md transition hover:border-red-200 dark:hover:border-red-800">
+
               {/* Urgency Badge */}
               <div className="absolute top-4 right-4 flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                <span className="text-[10px] font-extrabold text-red-600 uppercase tracking-widest">{req.urgency}</span>
+                <span className="text-[10px] font-extrabold text-red-600 dark:text-red-400 uppercase tracking-widest">{req.urgency}</span>
               </div>
 
               <div className="p-5 flex-1">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-extrabold text-xl border-2 border-red-100 shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center font-extrabold text-xl border-2 border-red-100 dark:border-red-900/60 shrink-0">
                     {formatBloodGroup(req.bloodGroup)}
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-slate-900 uppercase tracking-wide text-sm">{req.patient?.fullName || "Patient Name"}</h3>
-                    <p className="text-xs font-semibold text-slate-500 mt-0.5">{req.bagsNeeded} Bags required</p>
+                    <h3 className="font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wide text-sm">{req.patient?.fullName || "Patient Name"}</h3>
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">{req.bagsNeeded} Bags required</p>
                   </div>
                 </div>
 
                 <div className="space-y-2.5">
                   <div className="flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                    <MapPin className="w-4 h-4 text-slate-400 dark:text-slate-500 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs font-bold text-slate-800 uppercase leading-snug">{req.hospitalName}</p>
-                      <p className="text-[11px] text-slate-500 font-medium">{req.hospitalAddress}, {req.city}</p>
+                      <p className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase leading-snug">{req.hospitalName}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">{req.hospitalAddress}, {req.city}</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-2.5">
                     <Clock className="w-4 h-4 text-red-400 shrink-0" />
-                    <p className="text-xs font-bold text-slate-700">
-                      <span className="text-slate-500 font-medium">Needed:</span> {formatDate(req.neededBy)}
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                      <span className="text-slate-500 dark:text-slate-400 font-medium">Needed:</span> {formatDate(req.neededBy)}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="px-5 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between mt-auto">
+              <div className="px-5 py-4 bg-slate-50 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between mt-auto">
                 <div>
-                  <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Contact Person</p>
-                  <p className="text-xs font-extrabold text-slate-900 uppercase">{req.patient?.fullName || "Representative"}</p>
+                  <p className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Contact Person</p>
+                  <p className="text-xs font-extrabold text-slate-900 dark:text-slate-100 uppercase">{req.patient?.fullName || "Representative"}</p>
                 </div>
-                
-                
-                <div className="flex items-center gap-2">
+
+                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                   <FaPhoneAlt /> {req.contactNumber}
                 </div>
               </div>

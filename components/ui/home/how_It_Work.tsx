@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { MdBloodtype } from "react-icons/md";
@@ -7,7 +6,7 @@ type TextCard = {
   kind: "text";
   title: string;
   points: string[];
-  href: string;
+  href?: string;
   variant: "red" | "dark";
 };
 
@@ -26,7 +25,6 @@ const items: (TextCard | ImageCard)[] = [
       "Someone in your community may need blood when you least expect it.",
       "Regular donation can be a healthy and rewarding habit for eligible donors.",
     ],
- 
     variant: "red",
   },
   {
@@ -43,7 +41,6 @@ const items: (TextCard | ImageCard)[] = [
       "Weight and other eligibility requirements may apply.",
       "Donation frequency depends on local blood donation guidelines.",
     ],
-  
     variant: "red",
   },
   {
@@ -59,7 +56,6 @@ const items: (TextCard | ImageCard)[] = [
       "Your body naturally replaces the donated blood over time.",
       "Eligibility for people with certain conditions depends on medical guidance.",
     ],
-   
     variant: "dark",
   },
   {
@@ -70,8 +66,8 @@ const items: (TextCard | ImageCard)[] = [
 ];
 
 const btnVariants = {
-  red: "bg-[#e0294f] hover:bg-[#c91f42] border-[#f7a1b3]",
-  dark: "bg-[#171717] hover:bg-black border-[#555]",
+  red: "bg-[#e0294f] hover:bg-[#c91f42] border-[#f7a1b3] dark:border-[#e0294f]/60",
+  dark: "bg-[#171717] hover:bg-black border-[#555] dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-600",
 };
 
 export default function BloodDonationSection() {
@@ -83,21 +79,19 @@ export default function BloodDonationSection() {
       <div className="mx-auto max-w-7xl">
         {/* Section Heading */}
         <div className="mx-auto mb-10 max-w-2xl text-center">
-         
-
-          <h2 className="text-3xl font-bold tracking-tight text-[#15182b] sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-[#15182b] dark:text-slate-100 sm:text-4xl">
             Learn More About{" "}
             <span className="text-[#e0294f]">Blood Donation</span>
           </h2>
 
-          <p className="mt-3 text-sm leading-6 text-neutral-500 sm:text-base">
+          <p className="mt-3 text-sm leading-6 text-neutral-500 dark:text-slate-400 sm:text-base">
             Learn why blood donation matters, who can donate, and the facts
             behind some common blood donation myths.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.06)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid overflow-hidden rounded-3xl border border-neutral-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[0_20px_60px_rgba(0,0,0,0.06)] dark:shadow-none sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) =>
             item.kind === "image" ? (
               <div
@@ -113,23 +107,23 @@ export default function BloodDonationSection() {
                 />
 
                 {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 dark:from-black/50" />
 
                 <div className="absolute bottom-5 left-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-sm text-[#e0294f] shadow-md">
-                   <MdBloodtype/>
+                  <MdBloodtype />
                 </div>
               </div>
             ) : (
               <article
                 key={index}
-                className="group relative flex min-h-[330px] flex-col justify-between overflow-hidden bg-white p-7 transition duration-300 hover:bg-red-50/30"
+                className="group relative flex min-h-[330px] flex-col justify-between overflow-hidden bg-white dark:bg-slate-900 p-7 transition duration-300 hover:bg-red-50/30 dark:hover:bg-slate-800/60"
               >
                 {/* Decorative Circle */}
                 <div
                   className={`absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-10 ${
                     item.variant === "red"
                       ? "bg-[#e0294f]"
-                      : "bg-black"
+                      : "bg-black dark:bg-white"
                   }`}
                 />
 
@@ -139,17 +133,17 @@ export default function BloodDonationSection() {
                     className={`mb-5 inline-flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white ${
                       item.variant === "red"
                         ? "bg-[#e0294f]"
-                        : "bg-[#171717]"
+                        : "bg-[#171717] dark:bg-slate-700"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <h3 className="max-w-xs text-xl font-bold leading-tight text-[#171b35]">
+                  <h3 className="max-w-xs text-xl font-bold leading-tight text-[#171b35] dark:text-slate-100">
                     {item.title}
                   </h3>
 
-                  <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-600">
+                  <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-600 dark:text-slate-400">
                     {item.points.map((point) => (
                       <li key={point} className="flex gap-2.5">
                         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#e0294f]" />
@@ -161,7 +155,7 @@ export default function BloodDonationSection() {
 
                 {/* Read More */}
                 <Link
-                  href={item}
+                  href={item.href ?? "#"}
                   className={`relative z-10 mt-7 inline-flex w-fit items-center gap-3 border-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0294f] ${
                     btnVariants[item.variant]
                   }`}
@@ -182,4 +176,3 @@ export default function BloodDonationSection() {
     </section>
   );
 }
-
