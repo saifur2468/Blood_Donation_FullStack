@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -10,7 +9,7 @@ import {
   CheckCircle,
   ShieldCheck,
 } from "lucide-react";
-import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
@@ -91,11 +90,7 @@ export default function PatientProfilePage() {
       } catch (err: any) {
         console.error("PROFILE FETCH ERROR:", err);
 
-        Swal.fire(
-          "Error!",
-          err.message || "Could not fetch profile data",
-          "error"
-        );
+        toast.error(err.message || "Could not fetch profile data");
       } finally {
         setLoading(false);
       }
@@ -208,23 +203,13 @@ export default function PatientProfilePage() {
         }
       }
 
-      Swal.fire({
-        title: "Success!",
-        text: "Profile updated successfully!",
-        icon: "success",
-        confirmButtonColor: "#dc2626",
-      });
+      toast.success("Profile updated successfully!");
     } catch (err: any) {
       console.error("UPDATE PROFILE ERROR:", err);
 
-      Swal.fire({
-        title: "Error!",
-        text:
-          err.message ||
-          "Something went wrong while updating profile",
-        icon: "error",
-        confirmButtonColor: "#dc2626",
-      });
+      toast.error(
+        err.message || "Something went wrong while updating profile"
+      );
     } finally {
       setUpdating(false);
     }
@@ -237,9 +222,9 @@ export default function PatientProfilePage() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-red-600" />
+          <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-slate-200 dark:border-slate-700 border-t-red-600" />
 
-          <p className="text-sm font-bold text-slate-500">
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
             Loading profile...
           </p>
         </div>
@@ -253,17 +238,17 @@ export default function PatientProfilePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6 pb-12">
 
-<h1 className="text-center text-2xl font-semibold text-red-600">Patient Profile Page </h1>
+<h1 className="text-center text-2xl font-semibold text-red-600 dark:text-red-400">Patient Profile Page </h1>
    
       <form
         onSubmit={handleUpdate}
-        className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-xs shadow-sm"
+        className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-xs shadow-sm"
       >
 
         {/* Full Name */}
         <div>
-          <label className="flex items-center gap-1 font-bold text-slate-700">
-            <User className="h-3.5 w-3.5 text-slate-400" />
+          <label className="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
+            <User className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
 
             Full Name
           </label>
@@ -278,18 +263,18 @@ export default function PatientProfilePage() {
                 fullName: e.target.value,
               })
             }
-            className="mt-1 w-full rounded-xl border border-slate-200 p-3 font-medium text-slate-800 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
+            className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 font-medium text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
             placeholder="Enter your full name"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label className="flex items-center gap-1 font-bold text-slate-700">
-            <Mail className="h-3.5 w-3.5 text-slate-400" />
+          <label className="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
+            <Mail className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
 
             Email
-            <span className="text-[10px] text-slate-400">
+            <span className="text-[10px] text-slate-400 dark:text-slate-500">
               (Read-only)
             </span>
           </label>
@@ -298,14 +283,14 @@ export default function PatientProfilePage() {
             type="email"
             disabled
             value={profile.email}
-            className="mt-1 w-full cursor-not-allowed rounded-xl border border-slate-100 bg-slate-50 p-3 text-slate-500"
+            className="mt-1 w-full cursor-not-allowed rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-slate-500 dark:text-slate-500"
           />
         </div>
 
         {/* Phone */}
         <div>
-          <label className="flex items-center gap-1 font-bold text-slate-700">
-            <Phone className="h-3.5 w-3.5 text-slate-400" />
+          <label className="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
+            <Phone className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
 
             Phone Number
           </label>
@@ -320,15 +305,15 @@ export default function PatientProfilePage() {
                 phoneNumber: e.target.value,
               })
             }
-            className="mt-1 w-full rounded-xl border border-slate-200 p-3 font-medium text-slate-800 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
+            className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 font-medium text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
             placeholder="Enter phone number"
           />
         </div>
 
         {/* City */}
         <div>
-          <label className="flex items-center gap-1 font-bold text-slate-700">
-            <MapPin className="h-3.5 w-3.5 text-slate-400" />
+          <label className="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
+            <MapPin className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
 
             Address / City
           </label>
@@ -342,15 +327,15 @@ export default function PatientProfilePage() {
                 address: e.target.value,
               })
             }
-            className="mt-1 w-full rounded-xl border border-slate-200 p-3 font-medium text-slate-800 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
+            className="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 font-medium text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
             placeholder="Enter your city"
           />
         </div>
 
         {/* Blood Group */}
         <div>
-          <label className="flex items-center gap-1 font-bold text-slate-700">
-            <ShieldCheck className="h-3.5 w-3.5 text-slate-400" />
+          <label className="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
+            <ShieldCheck className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
 
             Blood Group
           </label>
@@ -361,14 +346,14 @@ export default function PatientProfilePage() {
             value={profile.bloodGroup
               .replace("_POSITIVE", "+")
               .replace("_NEGATIVE", "-")}
-            className="mt-1 w-full cursor-not-allowed rounded-xl border border-slate-100 bg-slate-50 p-3 font-bold uppercase text-slate-500"
+            className="mt-1 w-full cursor-not-allowed rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 font-bold uppercase text-slate-500 dark:text-slate-500"
           />
         </div>
 
         {/* Availability */}
-        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+        <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-4">
 
-          <label className="flex cursor-pointer items-center gap-3 font-bold text-slate-700">
+          <label className="flex cursor-pointer items-center gap-3 font-bold text-slate-700 dark:text-slate-300">
 
             <input
               type="checkbox"
@@ -388,19 +373,19 @@ export default function PatientProfilePage() {
 
           </label>
 
-          <p className="mt-1 pl-7 text-[11px] text-slate-500">
+          <p className="mt-1 pl-7 text-[11px] text-slate-500 dark:text-slate-400">
             Turn this on when you are available to donate blood.
           </p>
 
         </div>
 
         {/* Submit */}
-        <div className="flex justify-end border-t border-slate-100 pt-4">
+        <div className="flex justify-end border-t border-slate-100 dark:border-slate-800 pt-4">
 
           <button
             type="submit"
             disabled={updating}
-            className="flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3 font-extrabold text-white shadow-md transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3 font-extrabold text-white shadow-md transition hover:bg-red-700 dark:hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
 
             {updating ? (
@@ -425,4 +410,3 @@ export default function PatientProfilePage() {
     </div>
   );
 }
-

@@ -20,6 +20,18 @@ const BLUE = '#2f8bff';
 const YELLOW = '#fdd98a';
 const PURPLE = '#c9bdfc';
 
+// Recharts-er color gulo CSS variable theke ashe, jate dark mode-e auto change hoy
+const tooltipStyles = {
+  contentStyle: {
+    background: 'var(--chart-tip-bg)',
+    border: '1px solid var(--chart-tip-border)',
+    borderRadius: 8,
+    color: 'var(--chart-tip-text)',
+  },
+  labelStyle: { color: 'var(--chart-tip-text)' },
+  itemStyle: { color: 'var(--chart-tip-text)' },
+};
+
 export default function DashboardOverviewPage() {
   // Direct fallback object pathacchi jate 0 na hoye immediate data show kore
   const [stats, setStats] = useState<any>({
@@ -69,7 +81,7 @@ export default function DashboardOverviewPage() {
 
   if (loading) {
     return (
-      <div className="flex h-64 items-center justify-center text-slate-500 font-semibold text-xs">
+      <div className="flex h-64 items-center justify-center text-slate-500 dark:text-slate-400 font-semibold text-xs">
         Loading live dashboard analytics...
       </div>
     );
@@ -112,27 +124,27 @@ export default function DashboardOverviewPage() {
   ];
 
   return (
-    <div className="w-full space-y-5 font-sans">
+    <div className="w-full space-y-5 font-sans [--chart-grid:#eef2f7] [--chart-cursor:#f8fafc] [--chart-tip-bg:#ffffff] [--chart-tip-border:#e2e8f0] [--chart-tip-text:#0f172a] dark:[--chart-grid:#1e293b] dark:[--chart-cursor:#1e293b] dark:[--chart-tip-bg:#0f172a] dark:[--chart-tip-border:#334155] dark:[--chart-tip-text:#f1f5f9]">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight">Overview</h1>
-        <span className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-bold border border-emerald-200">
+        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Overview</h1>
+        <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-bold border border-emerald-200 dark:border-emerald-900">
           Live API Connected
         </span>
       </div>
 
       {/* Top row: chart + 2x2 stat cards */}
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-        <div className="rounded-2xl bg-white p-5 shadow-sm border border-slate-100 xl:col-span-3">
-          <h3 className="mb-4 text-xs font-extrabold text-slate-700 uppercase tracking-wider">
+        <div className="rounded-2xl bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800 xl:col-span-3">
+          <h3 className="mb-4 text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
             System analytics
           </h3>
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} barSize={32}>
-                <CartesianGrid strokeDasharray="0" vertical={false} stroke="#eef2f7" />
+                <CartesianGrid strokeDasharray="0" vertical={false} stroke="var(--chart-grid)" />
                 <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
-                <Tooltip cursor={{ fill: '#f8fafc' }} />
+                <Tooltip cursor={{ fill: 'var(--chart-cursor)' }} {...tooltipStyles} />
                 <Bar dataKey="count" fill={BLUE} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -141,10 +153,10 @@ export default function DashboardOverviewPage() {
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:col-span-2">
           {cards.map((c) => (
-            <div key={c.label} className="flex flex-col justify-between rounded-2xl bg-white p-5 shadow-sm border border-slate-100">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{c.label}</p>
-              <h3 className="mt-3 text-3xl font-black text-slate-900">{c.value}</h3>
-              <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">
+            <div key={c.label} className="flex flex-col justify-between rounded-2xl bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{c.label}</p>
+              <h3 className="mt-3 text-3xl font-black text-slate-900 dark:text-slate-100">{c.value}</h3>
+              <p className="mt-3 border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
                 Live from system reports
               </p>
             </div>
@@ -154,8 +166,8 @@ export default function DashboardOverviewPage() {
 
       {/* Bottom row: donut + stacked bar */}
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-        <div className="rounded-2xl bg-white p-5 shadow-sm border border-slate-100 xl:col-span-2">
-          <h3 className="mb-2 text-xs font-extrabold text-slate-700 uppercase tracking-wider">Users by role</h3>
+        <div className="rounded-2xl bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800 xl:col-span-2">
+          <h3 className="mb-2 text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Users by role</h3>
           <div className="h-52 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -171,20 +183,20 @@ export default function DashboardOverviewPage() {
                     <Cell key={d.name} fill={d.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip {...tooltipStyles} />
               </PieChart>
             </ResponsiveContainer>
           </div>
           <table className="mt-3 w-full text-xs">
             <thead>
-              <tr className="text-left text-slate-400">
+              <tr className="text-left text-slate-400 dark:text-slate-500">
                 <th className="pb-2 font-bold uppercase tracking-wider text-[10px]">Source</th>
                 <th className="pb-2 text-right font-bold uppercase tracking-wider text-[10px]">Count</th>
               </tr>
             </thead>
             <tbody>
               {donutData.map((d) => (
-                <tr key={d.name} className="text-slate-700">
+                <tr key={d.name} className="text-slate-700 dark:text-slate-300">
                   <td className="py-1.5 font-medium">
                     <span
                       className="mr-2 inline-block h-2 w-2 rounded-full"
@@ -199,15 +211,15 @@ export default function DashboardOverviewPage() {
           </table>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm border border-slate-100 xl:col-span-3">
-          <h3 className="mb-4 text-xs font-extrabold text-slate-700 uppercase tracking-wider">Users vs requests</h3>
+        <div className="rounded-2xl bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800 xl:col-span-3">
+          <h3 className="mb-4 text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Users vs requests</h3>
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={stackedData} barSize={48}>
-                <CartesianGrid strokeDasharray="0" vertical={false} stroke="#eef2f7" />
+                <CartesianGrid strokeDasharray="0" vertical={false} stroke="var(--chart-grid)" />
                 <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
-                <Tooltip cursor={{ fill: '#f8fafc' }} />
+                <Tooltip cursor={{ fill: 'var(--chart-cursor)' }} {...tooltipStyles} />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: 11 }} />
                 <Bar dataKey="donors" name="Donors" stackId="a" fill={BLUE} />
                 <Bar dataKey="patients" name="Patients" stackId="a" fill={PURPLE} />

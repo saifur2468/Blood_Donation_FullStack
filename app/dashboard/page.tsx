@@ -235,8 +235,8 @@ export default function DashboardRedirectPage() {
   }, [router]);
 
   return (
-    <div className="flex h-64 items-center justify-center text-slate-500">
-      Redirecting to your dashboard...
-    </div>
+   <div className="flex h-64 items-center justify-center text-slate-500 dark:text-slate-400">
+  Redirecting to your dashboard...
+</div>
   );
 }

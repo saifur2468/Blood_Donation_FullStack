@@ -104,7 +104,7 @@ export default function PatientPaymentHistoryPage() {
 
   if (loading) {
     return (
-      <div className="text-center py-12 text-xs font-bold text-slate-500">
+      <div className="text-center py-12 text-xs font-bold text-slate-500 dark:text-slate-400">
         Loading payment history...
       </div>
     );
@@ -114,24 +114,24 @@ export default function PatientPaymentHistoryPage() {
     <div className="max-w-5xl mx-auto space-y-6">
       
       <div>
-        <h2 className="text-xl font-extrabold text-center text-red-600">
+        <h2 className="text-xl font-extrabold text-center text-red-600 dark:text-red-400">
             Payment & Receipt History
           </h2>
-          <p className="text-xl text-center mt-2 font-semibold text-slate-500">
+          <p className="text-xl text-center mt-2 font-semibold text-slate-500 dark:text-slate-400">
             View your payment statuses and download PDF receipts.
           </p>
       </div>
 
       {totalItems === 0 ? (
-        <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-xs font-semibold text-slate-500">
+        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
           No payment history found.
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           {/* Table */}
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-500">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
                 <tr>
                   <th className="px-5 py-3 font-bold w-14">SL</th>
                   <th className="px-5 py-3 font-bold">Hospital</th>
@@ -142,36 +142,36 @@ export default function PatientPaymentHistoryPage() {
                   <th className="px-5 py-3 font-bold text-right">Receipt</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {paginated.map((item, idx) => {
                   const isPaid = (item.paymentStatus || "PAID") === "PAID";
                   return (
                     <tr
                       key={item.id}
-                      className="hover:bg-slate-50/70 transition-colors"
+                      className="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors"
                     >
-                      <td className="px-5 py-4 font-semibold text-slate-400">
+                      <td className="px-5 py-4 font-semibold text-slate-400 dark:text-slate-500">
                         {(page - 1) * pageSize + idx + 1}
                       </td>
 
-                      <td className="px-5 py-4 font-bold text-slate-900">
+                      <td className="px-5 py-4 font-bold text-slate-900 dark:text-slate-100">
                         {item.request?.hospitalName || "Emergency Support"}
                       </td>
 
                       <td className="px-5 py-4">
-                        <span className="px-2.5 py-1 rounded-lg bg-red-50 text-red-600 font-extrabold border border-red-100">
+                        <span className="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-300 font-extrabold border border-red-100 dark:border-red-900">
                           {formatBloodGroup(item.request?.bloodGroup)}
                         </span>
                       </td>
 
-                      <td className="px-5 py-4 font-semibold text-slate-600 whitespace-nowrap">
+                      <td className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                         {formatDate(item)}
                       </td>
 
                       <td className="px-5 py-4">
                         <span
                           title={item.id}
-                          className="font-mono text-[10px] text-slate-400"
+                          className="font-mono text-[10px] text-slate-400 dark:text-slate-500"
                         >
                           {item.id.slice(0, 8)}...
                         </span>
@@ -181,8 +181,8 @@ export default function PatientPaymentHistoryPage() {
                         <span
                           className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-extrabold border ${
                             isPaid
-                              ? "bg-emerald-50 text-emerald-700 border-emerald-100"
-                              : "bg-amber-50 text-amber-700 border-amber-100"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-900"
+                              : "bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-900"
                           }`}
                         >
                           {isPaid ? (
@@ -200,12 +200,12 @@ export default function PatientPaymentHistoryPage() {
                             href={item.receiptUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-bold border border-blue-100 transition-colors whitespace-nowrap"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-950 dark:text-blue-300 dark:border-blue-900 rounded-lg font-bold transition-colors whitespace-nowrap"
                           >
                             <FileText className="w-3.5 h-3.5" /> View PDF
                           </a>
                         ) : (
-                          <span className="text-slate-400 text-[10px] italic whitespace-nowrap">
+                          <span className="text-slate-400 dark:text-slate-500 text-[10px] italic whitespace-nowrap">
                             Receipt generating...
                           </span>
                         )}
@@ -218,8 +218,8 @@ export default function PatientPaymentHistoryPage() {
           </div>
 
           {/* Pagination footer */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-slate-200 bg-slate-50 text-xs">
-            <div className="flex items-center gap-3 text-slate-500 font-semibold">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-xs">
+            <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-semibold">
               <span>
                 Showing {showingFrom}-{showingTo} of {totalItems}
               </span>
@@ -231,7 +231,7 @@ export default function PatientPaymentHistoryPage() {
                     setPageSize(Number(e.target.value));
                     setPage(1);
                   }}
-                  className="border border-slate-200 rounded-lg px-2 py-1 bg-white text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-red-200"
+                  className="border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold focus:outline-none focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900"
                 >
                   {PAGE_SIZE_OPTIONS.map((n) => (
                     <option key={n} value={n}>
@@ -247,14 +247,14 @@ export default function PatientPaymentHistoryPage() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
                 aria-label="Previous page"
-                className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
               {getPageNumbers(page, totalPages).map((p, i) =>
                 p === "..." ? (
-                  <span key={`dots-${i}`} className="px-2 text-slate-400">
+                  <span key={`dots-${i}`} className="px-2 text-slate-400 dark:text-slate-500">
                     ...
                   </span>
                 ) : (
@@ -265,7 +265,7 @@ export default function PatientPaymentHistoryPage() {
                     className={`min-w-8 h-8 px-2 rounded-lg border font-bold transition-colors ${
                       p === page
                         ? "bg-red-600 text-white border-red-600"
-                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
+                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700"
                     }`}
                   >
                     {p}
@@ -277,7 +277,7 @@ export default function PatientPaymentHistoryPage() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
                 aria-label="Next page"
-                className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

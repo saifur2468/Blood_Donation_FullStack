@@ -21,6 +21,18 @@ const YELLOW = "#fdd98a";
 const PURPLE = "#c9bdfc";
 const RED = "#f87171";
 
+// Recharts-er color gulo CSS variable theke ashe, jate dark mode-e auto change hoy
+const tooltipStyles = {
+  contentStyle: {
+    background: "var(--chart-tip-bg)",
+    border: "1px solid var(--chart-tip-border)",
+    borderRadius: 8,
+    color: "var(--chart-tip-text)",
+  },
+  labelStyle: { color: "var(--chart-tip-text)" },
+  itemStyle: { color: "var(--chart-tip-text)" },
+};
+
 const BLOOD_LABEL: Record<string, string> = {
   A_POSITIVE: "A+",
   A_NEGATIVE: "A-",
@@ -35,10 +47,10 @@ const label = (bg?: string | null) => (bg ? BLOOD_LABEL[bg] || bg : "N/A");
 
 const urgencyStyle = (u: string) =>
   u === "CRITICAL"
-    ? "bg-red-50 text-red-600 border-red-200"
+    ? "bg-red-50 text-red-600 border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-900"
     : u === "URGENT"
-    ? "bg-amber-50 text-amber-600 border-amber-200"
-    : "bg-slate-50 text-slate-500 border-slate-200";
+    ? "bg-amber-50 text-amber-600 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-900"
+    : "bg-slate-50 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700";
 
 export default function DonorOverviewPage() {
   const [profile, setProfile] = useState<any>(null);
@@ -77,7 +89,7 @@ export default function DonorOverviewPage() {
 
   if (loading) {
     return (
-      <div className="flex h-64 items-center justify-center text-xs font-semibold text-slate-500">
+      <div className="flex h-64 items-center justify-center text-xs font-semibold text-slate-500 dark:text-slate-400">
         Loading your donor overview...
       </div>
     );
@@ -125,19 +137,19 @@ export default function DonorOverviewPage() {
     .slice(0, 5);
 
   return (
-    <div className="w-full space-y-5 font-sans">
+    <div className="w-full space-y-5 font-sans [--chart-grid:#eef2f7] [--chart-cursor:#f8fafc] [--chart-tip-bg:#ffffff] [--chart-tip-border:#e2e8f0] [--chart-tip-text:#0f172a] dark:[--chart-grid:#1e293b] dark:[--chart-cursor:#1e293b] dark:[--chart-tip-bg:#0f172a] dark:[--chart-tip-border:#334155] dark:[--chart-tip-text:#f1f5f9]">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black tracking-tight text-slate-900">Overview</h1>
+        <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-slate-100">Overview</h1>
         {error ? (
-          <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold text-red-600">
+          <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold text-red-600 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
             {error}
           </span>
         ) : (
           <span
             className={`rounded-full border px-3 py-1 text-xs font-bold ${
               profile?.isAvailable
-                ? "border-emerald-200 bg-emerald-50 text-emerald-600"
-                : "border-slate-200 bg-slate-50 text-slate-500"
+                ? "border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-400"
+                : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
             }`}
           >
             {profile?.isAvailable ? "Available to donate" : "Currently unavailable"}
@@ -147,22 +159,22 @@ export default function DonorOverviewPage() {
 
       {/* Top row */}
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-3">
-          <h3 className="mb-4 text-xs font-extrabold uppercase tracking-wider text-slate-700">
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 xl:col-span-3">
+          <h3 className="mb-4 text-xs font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Pending requests by blood group
           </h3>
           <div className="h-64 w-full">
             {chartData.length === 0 ? (
-              <div className="flex h-full items-center justify-center text-xs text-slate-400">
+              <div className="flex h-full items-center justify-center text-xs text-slate-400 dark:text-slate-500">
                 No pending requests right now.
               </div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} barSize={32}>
-                  <CartesianGrid strokeDasharray="0" vertical={false} stroke="#eef2f7" />
+                  <CartesianGrid strokeDasharray="0" vertical={false} stroke="var(--chart-grid)" />
                   <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
                   <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
-                  <Tooltip cursor={{ fill: "#f8fafc" }} />
+                  <Tooltip cursor={{ fill: "var(--chart-cursor)" }} {...tooltipStyles} />
                   <Bar dataKey="count" name="Requests" radius={[6, 6, 0, 0]}>
                     {chartData.map((d) => (
                       <Cell key={d.name} fill={d.name === label(myGroup) ? RED : BLUE} />
@@ -173,7 +185,7 @@ export default function DonorOverviewPage() {
             )}
           </div>
           {myGroup && (
-            <p className="mt-2 text-[11px] font-medium text-slate-400">
+            <p className="mt-2 text-[11px] font-medium text-slate-400 dark:text-slate-500">
               Your blood group ({label(myGroup)}) is highlighted in red.
             </p>
           )}
@@ -183,11 +195,11 @@ export default function DonorOverviewPage() {
           {cards.map((c) => (
             <div
               key={c.label}
-              className="flex flex-col justify-between rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"
+              className="flex flex-col justify-between rounded-2xl border border-slate-100 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
             >
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">{c.label}</p>
-              <h3 className="mt-3 text-3xl font-black text-slate-900">{c.value}</h3>
-              <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] font-medium text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{c.label}</p>
+              <h3 className="mt-3 text-3xl font-black text-slate-900 dark:text-slate-100">{c.value}</h3>
+              <p className="mt-3 border-t border-slate-100 pt-3 text-[11px] font-medium text-slate-400 dark:border-slate-800 dark:text-slate-500">
                 {myCity ? `Based in ${myCity}` : "Live from your account"}
               </p>
             </div>
@@ -197,13 +209,13 @@ export default function DonorOverviewPage() {
 
       {/* Bottom row */}
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-2">
-          <h3 className="mb-2 text-xs font-extrabold uppercase tracking-wider text-slate-700">
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 xl:col-span-2">
+          <h3 className="mb-2 text-xs font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Requests by urgency
           </h3>
           <div className="h-52 w-full">
             {totalPending === 0 ? (
-              <div className="flex h-full items-center justify-center text-xs text-slate-400">
+              <div className="flex h-full items-center justify-center text-xs text-slate-400 dark:text-slate-500">
                 Nothing to show yet.
               </div>
             ) : (
@@ -214,21 +226,21 @@ export default function DonorOverviewPage() {
                       <Cell key={d.name} fill={d.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip {...tooltipStyles} />
                 </PieChart>
               </ResponsiveContainer>
             )}
           </div>
           <table className="mt-3 w-full text-xs">
             <thead>
-              <tr className="text-left text-slate-400">
+              <tr className="text-left text-slate-400 dark:text-slate-500">
                 <th className="pb-2 text-[10px] font-bold uppercase tracking-wider">Urgency</th>
                 <th className="pb-2 text-right text-[10px] font-bold uppercase tracking-wider">Requests</th>
               </tr>
             </thead>
             <tbody>
               {donutData.map((d) => (
-                <tr key={d.name} className="text-slate-700">
+                <tr key={d.name} className="text-slate-700 dark:text-slate-300">
                   <td className="py-1.5 font-medium">
                     <span className="mr-2 inline-block h-2 w-2 rounded-full" style={{ backgroundColor: d.color }} />
                     {d.name}
