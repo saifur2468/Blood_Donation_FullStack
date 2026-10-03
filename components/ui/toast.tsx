@@ -9,10 +9,11 @@ export const showToast = (message: string, type: 'success' | 'error' | 'info' = 
 };
 
 export const ToastContainer = () => {
-  const [toast, setToast] = useState<{ message: string; type: string } | null>(null);
+
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
   useEffect(() => {
-    showToastGlobal = (message, type) => {
+    showToastGlobal = (message, type = 'success') => {
       setToast({ message, type });
       setTimeout(() => {
         setToast(null);
@@ -22,7 +23,7 @@ export const ToastContainer = () => {
 
   if (!toast) return null;
 
-  const bgColors = {
+  const bgColors: Record<'success' | 'error' | 'info', string> = {
     success: 'bg-green-600',
     error: 'bg-red-600',
     info: 'bg-blue-600',
@@ -30,7 +31,7 @@ export const ToastContainer = () => {
 
   return (
     <div className="fixed bottom-5 right-5 z-50 animate-bounce">
-      <div className={`${bgColors[toast.type as keyof typeof bgColors] || 'bg-gray-800'} text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium`}>
+      <div className={`${bgColors[toast.type] || 'bg-gray-800'} text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium`}>
         <span>{toast.message}</span>
       </div>
     </div>

@@ -70,7 +70,6 @@ export default function BloodRequestPage() {
     try {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
-      // Flat payload: { body: {...} } wrap soriye deya hoyeche
       const payload = {
         ...data,
         bagsNeeded: Number(data.bagsNeeded),

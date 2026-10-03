@@ -13,7 +13,7 @@ const registerSchema = z.object({
   email: z.string().email("Valid email dite hobe"),
   phoneNumber: z.string().min(11, "Valid phone number dite hobe"),
   password: z.string().min(6, "Password kamti 6 character hote hobe"),
-  role: z.enum(["PATIENT", "DONOR", "PROVIDER"], { required_error: "Role select korun" }),
+  role: z.enum(["PATIENT", "DONOR", "PROVIDER"], { message: "Role select korun" }),
   bloodGroup: z.string().min(1, "Blood group select korun"),
   city: z.string().min(1, "Cityer nam dite hobe"),
 });

@@ -18,12 +18,12 @@ interface WorkItem {
 }
 
 const OUR_WORKS: WorkItem[] = [
-  {
+ {
     id: 1,
     title: "Blood Donation Program",
     channels: ["Website", "Facebook Group", "Excel Database", "Call Center"],
     image: "/img/blooddonationprogram11.jpg",
-
+    href: "/bloodrequest", 
     icon: <FaTint className="h-10 w-10 text-rose-600 dark:text-rose-400" />,
     card: "from-white via-rose-50/60 to-rose-100 dark:from-stone-900 dark:via-rose-950/40 dark:to-rose-950/70",
     button:
@@ -34,7 +34,7 @@ const OUR_WORKS: WorkItem[] = [
     title: "Eye Donation Program",
     channels: ["Website", "Facebook Group"],
     image: "/img/fgkl.jpg",
-
+    href: "/eye-donation", 
     icon: <FaEye className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />,
     card: "from-white via-emerald-50/60 to-emerald-100 dark:from-stone-900 dark:via-emerald-950/40 dark:to-emerald-950/70",
     button:
@@ -45,7 +45,7 @@ const OUR_WORKS: WorkItem[] = [
     title: "Cancer Awareness",
     channels: ["Website"],
     image: "/img/fgkl.jpg",
-
+    href: "/cancer-awareness",  
     icon: <FaRibbon className="h-10 w-10 text-sky-600 dark:text-sky-400" />,
     card: "from-white via-sky-50/60 to-sky-100 dark:from-stone-900 dark:via-sky-950/40 dark:to-sky-950/70",
     button:
