@@ -6,9 +6,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { showToast } from '@/components/ui/toast';
 
+// const bloodRequestSchema = z.object({
+//   bloodGroup: z.string().min(1, "Blood group select korun"),
+//   bagsNeeded: z.coerce.number().min(1, "Kompokhe 1 bag blood dorkar"),
+//   hospitalName: z.string().min(2, "Hospital name dite hobe"),
+//   hospitalAddress: z.string().min(5, "Hospital address dite hobe"),
+//   city: z.string().min(2, "City nam dite hobe"),
+//   urgency: z.string().min(1, "Urgency select korun"),
+//   contactNumber: z.string().min(11, "Valid contact number dite hobe"),
+//   neededBy: z.string().min(1, "Tarikh ebong shomoy select korun"),
+// });
+
 const bloodRequestSchema = z.object({
   bloodGroup: z.string().min(1, "Blood group select korun"),
-  bagsNeeded: z.coerce.number().min(1, "Kompokhe 1 bag blood dorkar"),
+  bagsNeeded: z.string().min(1, "Kompokhe 1 bag blood dorkar"), 
   hospitalName: z.string().min(2, "Hospital name dite hobe"),
   hospitalAddress: z.string().min(5, "Hospital address dite hobe"),
   city: z.string().min(2, "City nam dite hobe"),
@@ -18,6 +29,7 @@ const bloodRequestSchema = z.object({
 });
 
 type BloodRequestFormValues = z.infer<typeof bloodRequestSchema>;
+
 
 // localStorage theke role ber korar helper (userRole na thakle user object theke)
 const getStoredRole = (): string => {
@@ -70,9 +82,15 @@ export default function BloodRequestPage() {
     try {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
+      // const payload = {
+      //   ...data,
+      //   bagsNeeded: Number(data.bagsNeeded),
+      //   neededBy: new Date(data.neededBy).toISOString(),
+      // };
+
       const payload = {
         ...data,
-        bagsNeeded: Number(data.bagsNeeded),
+        bagsNeeded: Number(data.bagsNeeded), 
         neededBy: new Date(data.neededBy).toISOString(),
       };
 
