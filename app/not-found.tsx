@@ -22,7 +22,7 @@ export default function NotFoundPage() {
           </h1>
 
           <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
-            A massa, interdum pretium, ut sit est nec. Convallis fames proin lacus cras. Jekono karone page-ti khawa jacche na ba soriye fela hoyeche.
+          Apni je Route ti te clike korche ta system khuje pawa jai nai plz clike Right Route
           </p>
 
           <div className="pt-4 flex items-center justify-center lg:justify-start gap-4">
