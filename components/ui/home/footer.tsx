@@ -52,7 +52,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} LifeDrop. All rights reserved. Developed with ❤️ for saving lives.
+        © {new Date().getFullYear()} LifeDrop. All rights reserved. Developed with  for saving lives.
       </div>
     </footer>
   );
