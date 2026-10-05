@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AlertCircle, CheckCircle, Droplet } from "lucide-react";
 import SharedTable from "@/components/ui/tabel"; 
 import StatusBadge from "@/components/ui/badge"; 
+import { usePagination } from "@/hooks/usePagination"; 
 
 interface Patient {
   fullName: string;
@@ -32,10 +33,11 @@ export default function DonorRequestsPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const limit = 5; 
+  const [totalItemsCount, setTotalItemsCount] = useState(0);
+
+ 
+  const { currentPage, nextpage, prevPage, jumpToPage, totalPages } = usePagination(totalItemsCount, limit);
 
   const fetchPendingRequests = async (page: number) => {
     try {
@@ -43,7 +45,6 @@ export default function DonorRequestsPage() {
       const token = localStorage.getItem("accessToken");
       const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
-   
       const res = await fetch(`${baseUrl}/api/v1/blood-request/pending-requests?page=${page}&limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,8 +54,10 @@ export default function DonorRequestsPage() {
       const result = await res.json();
       if (result.success) {
         setRequests(result.data?.result || result.data || []);
-    
-        setTotalPages(result.data?.meta?.totalPage || 1);
+        
+        // Backend theke jodi total item ba total page ashe seta set korbe
+        const totalCount = result.data?.meta?.total || (result.data?.result?.length || 0);
+        setTotalItemsCount(totalCount);
       } else {
         setError(result.message || "Failed to fetch blood requests");
       }
@@ -64,6 +67,7 @@ export default function DonorRequestsPage() {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     fetchPendingRequests(currentPage);
@@ -186,13 +190,13 @@ export default function DonorRequestsPage() {
         </div>
       )}
 
-      {/* Shared Table with Built-in Pagination */}
+   
       <SharedTable
         columns={columns}
         data={requests}
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
+        onPageChange={(page) => jumpToPage(page)}
         loading={loading}
       />
     </div>
