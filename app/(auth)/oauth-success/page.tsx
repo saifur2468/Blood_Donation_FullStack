@@ -9,10 +9,10 @@ export default function OAuthSuccessPage() {
 
   useEffect(() => {
     if (token) {
-      // Local storage ba cookie-te token save korun
+
       localStorage.setItem('accessToken', token);
 
-      // Tarpor dashboard ba home page-e pathiye din
+    
       router.push('/dashboard'); 
     }
   }, [token, router]);

@@ -9,10 +9,6 @@ export default function GoogleCallbackPage() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Backend jodi URL query params-e token ba user data pathay, ba jodi cookie set kore thake
-    // Amra token ba success status handle korbo.
-    
-    // Ekhane amra ekta example check dicchi: jodi token URL-e thake ba backend cookie/session set kore:
     const token = searchParams.get("token");
     const role = searchParams.get("role");
 
@@ -26,7 +22,7 @@ export default function GoogleCallbackPage() {
       else if (role === "PROVIDER") router.push("/provider/dashboard");
       else router.push("/");
     } else {
-      // Jodi backend cookie base response dey, amra direct home/dashboard-e redirect kore dite pari
+
       showToast("Google Login Successful!", "success");
       router.push("/");
     }

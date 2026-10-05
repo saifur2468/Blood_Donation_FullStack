@@ -185,7 +185,7 @@ export default function BlogDetailsPage() {
       {/* Blog Content Section */}
       <div className="bg-white dark:bg-[#121212] p-8 rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm space-y-5 text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
         {blog.fullContent.map((paragraph: string, index: number) => {
-          // Check if the paragraph is a heading (shorter or ends with a colon or looks like a title)
+     
           const isHeading = paragraph.length < 65 && (paragraph.endsWith("?") || paragraph.includes(":") || !paragraph.includes("."));
           
           if (isHeading) {

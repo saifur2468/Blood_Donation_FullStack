@@ -20,7 +20,7 @@ const BLUE = '#2f8bff';
 const YELLOW = '#fdd98a';
 const PURPLE = '#c9bdfc';
 
-// Recharts-er color gulo CSS variable theke ashe, jate dark mode-e auto change hoy
+
 const tooltipStyles = {
   contentStyle: {
     background: 'var(--chart-tip-bg)',
@@ -33,7 +33,7 @@ const tooltipStyles = {
 };
 
 export default function DashboardOverviewPage() {
-  // Direct fallback object pathacchi jate 0 na hoye immediate data show kore
+
   const [stats, setStats] = useState<any>({
     totalUsers: 35,
     totalDonors: 23,

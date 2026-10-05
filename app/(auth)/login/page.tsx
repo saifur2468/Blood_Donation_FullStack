@@ -71,13 +71,13 @@ export default function LoginPage() {
     }
   };
 
-  // Google Login Handler
+
   const handleGoogleLogin = () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
     window.location.href = `${backendUrl}/api/v1/auth/google`;
   };
 
-  // Quick Demo Login Handler
+
   const handleDemoLogin = (role: 'ADMIN' | 'PATIENT' | 'DONOR') => {
     const demoUser = {
       id: "demo-id",
@@ -102,7 +102,7 @@ export default function LoginPage() {
           <p className="text-slate-600 dark:text-slate-400 text-sm">Login to your account</p>
         </div>
 
-        {/* Regular Login Form */}
+      
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
@@ -135,13 +135,13 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Divider */}
+     
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
           <div className="relative flex justify-center text-xs uppercase"><span className="bg-white dark:bg-slate-900 px-2 text-slate-500 dark:text-slate-400">─── OR ───</span></div>
         </div>
 
-        {/* Google Login Button */}
+     
         <div className="mb-6">
           <button
             type="button"
@@ -158,11 +158,11 @@ export default function LoginPage() {
           </button>
         </div>
 
-        {/* Quick Demo Login Section */}
+      
         <div>
           <p className="text-center text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Quick Demo Login</p>
           <div className="flex flex-col gap-2.5">
-            {/* 1st Row: 2 Buttons (Admin & Patient) */}
+        
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
@@ -183,7 +183,7 @@ export default function LoginPage() {
               </button>
             </div>
 
-            {/* 2nd Row: 1 Button (Donor) */}
+    
             <button
               type="button"
               onClick={() => handleDemoLogin("DONOR")}

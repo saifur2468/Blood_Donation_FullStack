@@ -4,17 +4,15 @@ import { FaHospital, FaTint, FaEye, FaRibbon } from "react-icons/fa";
 
 const BRAND = "BloodLink";
 
-/* ---------- Data ---------- */
-
 interface WorkItem {
   id: number;
   title: string;
   channels: string[];
-  image: string; // put your own images in /public/images/
+  image: string; 
   href: string;
   icon: React.ReactNode;
-  card: string; // card background gradient
-  button: string; // button colors
+  card: string; 
+  button: string; 
 }
 
 const OUR_WORKS: WorkItem[] = [
@@ -76,7 +74,7 @@ const FEATURES = [
   },
 ];
 
-/* ---------- Page ---------- */
+
 
 export default function AboutPage() {
   return (
@@ -172,7 +170,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ===== 2. Partner hospitals ===== */}
+       
         <section aria-labelledby="partners-heading">
           <h2
             id="partners-heading"
@@ -200,7 +198,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ===== 3. Our work ===== */}
+      
         <section aria-labelledby="work-heading">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <h2
