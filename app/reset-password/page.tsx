@@ -34,7 +34,7 @@ function ResetPasswordForm() {
   const onSubmit = async (data: FormValues) => {
     try {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-      const response = await fetch(`${backendUrl}/auth/reset-password`, {
+      const response = await fetch(`${backendUrl}/api/v1/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, newPassword: data.newPassword }),
