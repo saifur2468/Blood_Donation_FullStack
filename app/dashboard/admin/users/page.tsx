@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { showToast } from "@/components/ui/toast";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -9,7 +10,7 @@ export default function UsersPage() {
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Ek page-e koyta user dekhabe
+  const itemsPerPage = 5;
 
   const fetchUsers = async () => {
     try {
@@ -39,7 +40,7 @@ export default function UsersPage() {
     fetchUsers();
   }, []);
 
-  const handleBlock = async (id: string) => {
+  const handleBlock = async (id: string, currentStatus: boolean, userEmail: string) => {
     try {
       const token = localStorage.getItem("accessToken");
       const backendUrl =
@@ -56,9 +57,17 @@ export default function UsersPage() {
         }
       );
 
+      // Alert message based on previous status
+      if (currentStatus) {
+        showToast(`User ${userEmail} unblocked successfully!`);
+      } else {
+        showToast(`User ${userEmail} blocked successfully!`);
+      }
+
       fetchUsers();
     } catch (err) {
       console.error("Failed to update user status", err);
+      showToast("Failed to update user status!");
     }
   };
 
@@ -105,6 +114,7 @@ export default function UsersPage() {
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
                   {currentUsers.map((user) => {
                     const userId = user.id || user._id;
+                    const userName = user.fullName || user.name;
 
                     return (
                       <tr
@@ -114,7 +124,7 @@ export default function UsersPage() {
                         {/* Name & Email */}
                         <td className="p-4">
                           <p className="font-semibold text-slate-700 dark:text-slate-100">
-                            {user.fullName || user.name}
+                            {userName}
                           </p>
                           <p className="text-xs text-slate-400 dark:text-slate-500">
                             {user.email}
@@ -144,7 +154,7 @@ export default function UsersPage() {
                         {/* Action */}
                         <td className="p-4">
                           <button
-                            onClick={() => handleBlock(userId)}
+                            onClick={() => handleBlock(userId, user.isBlocked, user.email)}
                             className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                               user.isBlocked
                                 ? "bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-950"
@@ -193,3 +203,12 @@ export default function UsersPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

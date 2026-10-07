@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function RolesPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -19,7 +20,7 @@ export default function RolesPage() {
 
       const backendUrl =
         process.env.NEXT_PUBLIC_BACKEND_URL ||
-        "https://l2-a6-blood-donation.vercel.app";
+        "http://localhost:5000";
 
       const res = await axios.get(`${backendUrl}/api/v1/admin/users`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -32,6 +33,7 @@ export default function RolesPage() {
         "Error fetching users for role management:",
         err?.response?.data || err.message
       );
+      toast.error("Failed to load users!");
     } finally {
       setLoading(false);
     }
@@ -49,7 +51,7 @@ export default function RolesPage() {
 
       const backendUrl =
         process.env.NEXT_PUBLIC_BACKEND_URL ||
-        "https://l2-a6-blood-donation.vercel.app";
+        "http://localhost:5000";
 
       await axios.patch(
         `${backendUrl}/api/v1/admin/users/${id}/role`,
@@ -59,9 +61,11 @@ export default function RolesPage() {
         }
       );
 
+      toast.success(`User role successfully updated to ${newRole}!`);
       fetchUsers();
     } catch (err: any) {
       console.error("Failed to update role", err?.response?.data || err.message);
+      toast.error(err?.response?.data?.message || "Failed to update user role!");
     }
   };
 
@@ -75,6 +79,8 @@ export default function RolesPage() {
     switch (role?.toUpperCase()) {
       case "ADMIN":
         return "bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-900";
+      case "DONOR":
+        return "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-900";
       case "PROVIDER":
         return "bg-indigo-50 text-indigo-600 border-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-900";
       default:
@@ -163,8 +169,9 @@ export default function RolesPage() {
                             className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800 px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500/20 transition cursor-pointer"
                           >
                             <option value="ADMIN">ADMIN</option>
+                            <option value="DONOR">DONOR</option>
                             <option value="PATIENT">PATIENT</option>
-                            <option value="PROVIDER">PROVIDER</option>
+                           
                           </select>
                         </td>
                       </tr>
@@ -174,7 +181,7 @@ export default function RolesPage() {
               </table>
             </div>
 
-            {/* Professional Pagination Controls */}
+            {/* Pagination Controls */}
             <div className="flex flex-col sm:flex-row items-center justify-between border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 px-6 gap-3">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Showing {startIndex + 1} to{" "}
