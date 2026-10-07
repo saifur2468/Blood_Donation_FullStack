@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { MdBloodtype } from "react-icons/md";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { showToast } from "@/components/ui/toast";
-import GoogleTranslate from "@/components/GoogleTranslate";
+
 import ThemeToggle from "@/components/theme-toggle";
 
 export default function Navbar() {
@@ -81,7 +81,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-          <GoogleTranslate />
+         
           <ThemeToggle />
 
           {/* Desktop Action Buttons / User Profile */}
