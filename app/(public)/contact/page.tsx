@@ -1,75 +1,17 @@
+
 "use client";
 
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React from "react";
 import { Phone, Mail, MapPin, Clock, HeartHandshake } from "lucide-react";
 
 export default function ContactPage() {
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const [isSending, setIsSending] = useState(false);
-  const [message, setMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setIsSending(true);
-    setMessage("");
-    setIsSuccess(false);
-
-    const formData = new FormData(e.currentTarget);
-
-    const name = `${formData.get("name") || ""} ${
-      formData.get("last_name") || ""
-    }`.trim();
-
-    const email = String(formData.get("email") || "");
-    const title = String(formData.get("title") || "");
-    const messageText = String(formData.get("message") || "");
-    const time = new Date().toLocaleString();
-
-    try {
-      await emailjs.send(
-        "service_2s3sxa5",
-        "template_zmwmef7",
-        {
-          name,
-          email,
-          title,
-          message: messageText,
-          time,
-        },
-        {
-          publicKey: "pX9XpwGAK2gBX1j3L",
-        }
-      );
-
-      setIsSuccess(true);
-      setMessage("Your message has been sent successfully!");
-
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-    } catch (error: any) {
-      setIsSuccess(false);
-      setMessage(
-        error?.text
-          ? `Failed: ${error.text}`
-          : "Failed to send your message. Please try again later."
-      );
-    } finally {
-      setIsSending(false);
-    }
-  };
-
   return (
     <main className="bg-stone-50 dark:bg-stone-950 min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center font-sans">
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* Left Side: Contact Form Card */}
         <div className="lg:col-span-6 bg-white dark:bg-stone-900 rounded-3xl p-8 sm:p-10 shadow-sm border border-stone-100 dark:border-stone-800">
-          
+
           <div className="flex items-center gap-2 mb-4">
             <HeartHandshake className="w-5 h-5 text-red-600 dark:text-red-400" />
             <span className="text-sm font-bold text-stone-800 dark:text-stone-200 tracking-wide uppercase">
@@ -82,11 +24,7 @@ export default function ContactPage() {
             Blood Donation Support
           </h1>
 
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="space-y-4"
-          >
+          <form className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -134,34 +72,23 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              disabled={isSending}
-              className="w-full py-4 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base rounded-full shadow-md shadow-rose-600/20 dark:shadow-none transition-all duration-200 mt-2"
+              className="w-full py-4 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 text-white font-semibold text-base rounded-full shadow-md shadow-rose-600/20 dark:shadow-none transition-all duration-200 mt-2"
             >
-              {isSending ? "Sending..." : "Send Message"}
+              Send Message
             </button>
-
-            {message && (
-              <p
-                className={`text-center text-sm font-medium pt-1 ${
-                  isSuccess
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-red-600 dark:text-red-400"
-                }`}
-              >
-                {message}
-              </p>
-            )}
           </form>
         </div>
 
         {/* Right Side: Info Cards & Map */}
         <div className="lg:col-span-6 space-y-6">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
+
             <div className="bg-white dark:bg-stone-900 rounded-2xl p-5 shadow-sm border border-stone-100 dark:border-stone-800 flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0">
                 <Phone className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
+
               <div>
                 <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
                   Emergency Helpline
@@ -176,6 +103,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0">
                 <Mail className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
+
               <div>
                 <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
                   Support Email
@@ -190,6 +118,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0">
                 <MapPin className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
+
               <div>
                 <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
                   Head Office
@@ -204,6 +133,7 @@ export default function ContactPage() {
               <div className="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-950 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0">
                 <Clock className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
+
               <div>
                 <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
                   Support Hours
@@ -231,7 +161,6 @@ export default function ContactPage() {
           </div>
 
         </div>
-
       </div>
     </main>
   );

@@ -78,7 +78,7 @@ export default function RolesPage() {
   const getRoleBadgeStyle = (role: string) => {
     switch (role?.toUpperCase()) {
       case "ADMIN":
-        return "bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-900";
+      return "bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-900";
       case "DONOR":
         return "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-900";
       case "PROVIDER":
@@ -93,7 +93,7 @@ export default function RolesPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+       <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
             Role Management
           </h1>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -132,7 +132,6 @@ export default function RolesPage() {
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
                   {currentUsers.map((user, index) => {
                     const userId = user.id || user._id || index;
-
                     return (
                       <tr
                         key={userId}
