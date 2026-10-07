@@ -1,7 +1,68 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { Phone, Mail, MapPin, Clock, HeartHandshake } from "lucide-react";
 
 export default function ContactPage() {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const [isSending, setIsSending] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsSending(true);
+    setMessage("");
+    setIsSuccess(false);
+
+    const formData = new FormData(e.currentTarget);
+
+    const name = `${formData.get("name") || ""} ${
+      formData.get("last_name") || ""
+    }`.trim();
+
+    const email = String(formData.get("email") || "");
+    const title = String(formData.get("title") || "");
+    const messageText = String(formData.get("message") || "");
+    const time = new Date().toLocaleString();
+
+    try {
+      await emailjs.send(
+        "service_2s3sxa5",
+        "template_zmwmef7",
+        {
+          name,
+          email,
+          title,
+          message: messageText,
+          time,
+        },
+        {
+          publicKey: "pX9XpwGAK2gBX1j3L",
+        }
+      );
+
+      setIsSuccess(true);
+      setMessage("Your message has been sent successfully!");
+
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    } catch (error: any) {
+      setIsSuccess(false);
+      setMessage(
+        error?.text
+          ? `Failed: ${error.text}`
+          : "Failed to send your message. Please try again later."
+      );
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <main className="bg-stone-50 dark:bg-stone-950 min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center font-sans">
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -21,15 +82,23 @@ export default function ContactPage() {
             Blood Donation Support
           </h1>
 
-          <form className="space-y-4">
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="space-y-4"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
+                name="name"
                 placeholder="First Name"
+                required
                 className="w-full px-5 py-3.5 bg-stone-100/80 dark:bg-stone-800 border border-transparent rounded-full text-stone-800 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white dark:focus:bg-stone-800 transition-all"
               />
+
               <input
                 type="text"
+                name="last_name"
                 placeholder="Last Name"
                 className="w-full px-5 py-3.5 bg-stone-100/80 dark:bg-stone-800 border border-transparent rounded-full text-stone-800 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white dark:focus:bg-stone-800 transition-all"
               />
@@ -38,30 +107,50 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="email"
+                name="email"
                 placeholder="Email Address"
+                required
                 className="w-full px-5 py-3.5 bg-stone-100/80 dark:bg-stone-800 border border-transparent rounded-full text-stone-800 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white dark:focus:bg-stone-800 transition-all"
               />
+
               <input
                 type="text"
+                name="title"
                 placeholder="Subject / Inquiry Type"
+                required
                 className="w-full px-5 py-3.5 bg-stone-100/80 dark:bg-stone-800 border border-transparent rounded-full text-stone-800 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white dark:focus:bg-stone-800 transition-all"
               />
             </div>
 
             <div>
               <textarea
+                name="message"
                 rows={5}
                 placeholder="Write your message or inquiry here..."
+                required
                 className="w-full p-5 bg-stone-100/80 dark:bg-stone-800 border border-transparent rounded-3xl text-stone-800 dark:text-stone-100 placeholder-stone-500 dark:placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white dark:focus:bg-stone-800 transition-all resize-none"
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="w-full py-4 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 text-white font-semibold text-base rounded-full shadow-md shadow-rose-600/20 dark:shadow-none transition-all duration-200 mt-2"
+              disabled={isSending}
+              className="w-full py-4 bg-rose-600 hover:bg-rose-700 dark:hover:bg-rose-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base rounded-full shadow-md shadow-rose-600/20 dark:shadow-none transition-all duration-200 mt-2"
             >
-              Send Message
+              {isSending ? "Sending..." : "Send Message"}
             </button>
+
+            {message && (
+              <p
+                className={`text-center text-sm font-medium pt-1 ${
+                  isSuccess
+                    ? "text-green-600 dark:text-green-400"
+                    : "text-red-600 dark:text-red-400"
+                }`}
+              >
+                {message}
+              </p>
+            )}
           </form>
         </div>
 
@@ -74,8 +163,12 @@ export default function ContactPage() {
                 <Phone className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">Emergency Helpline</p>
-                <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5">+880 1404-260731</p>
+                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
+                  Emergency Helpline
+                </p>
+                <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+                  +880 1404-260731
+                </p>
               </div>
             </div>
 
@@ -84,8 +177,12 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">Support Email</p>
-                <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5">saifur.devweb@gmail.com</p>
+                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
+                  Support Email
+                </p>
+                <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+                  saifur.devweb@gmail.com
+                </p>
               </div>
             </div>
 
@@ -94,9 +191,11 @@ export default function ContactPage() {
                 <MapPin className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">Head Office</p>
+                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
+                  Head Office
+                </p>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 leading-snug">
-                  Shafipur Bazar, Kaliyakoir,Gazipur
+                  Shafipur Bazar, Kaliyakoir, Gazipur
                 </p>
               </div>
             </div>
@@ -106,7 +205,9 @@ export default function ContactPage() {
                 <Clock className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">Support Hours</p>
+                <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">
+                  Support Hours
+                </p>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mt-0.5 leading-snug">
                   24/7 Emergency Active
                 </p>
