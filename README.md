@@ -9,12 +9,10 @@ A web-based Blood Donation Management System designed to connect blood donors wi
 
 ## 🛠️ Technologies Used
 
-- **Runtime:** Node.js
-- **Backend:** Express.js
-- **Language:** TypeScript
-- **Database:** PostgreSQL
-- **ORM:** Prisma
-- **Authentication:** JSON Web Token (JWT)
+- **Backend:** Express.js,Node.js ,Nodemailer, cloudinary multer storage
+- **frontend:** TypeScript,Nextjs, talwind css 
+- **Database:** PostgreSQL,Prisma ORM
+- **Authentication:** JSON Web Token , Google login system 
 - **Payment Integration:** Stripe
 - **Deployment:** Vercel
 
