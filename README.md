@@ -8,9 +8,9 @@ A web-based Blood Donation Management System designed to connect blood donors wi
 - **GitHub Repository:** https://github.com/saifur2468/L2-A6-Blood-Donation-Backend
   
 ## 🔑 Admin Login Credentials
-**Email:** admin69@gmail.com
-**Password:** adminAB@##78
-**video Explanations** : https://drive.google.com/file/d/1vSEhdFTwDTvbl-ya7oTyjKfIEjFoHo78/view?usp=drive_link
+- **Email:** admin69@gmail.com
+- **Password:** adminAB@##78
+- **video Explanations** : https://drive.google.com/file/d/1vSEhdFTwDTvbl-ya7oTyjKfIEjFoHo78/view?usp=drive_link
 
 ## 🛠️ Technologies Used
 
