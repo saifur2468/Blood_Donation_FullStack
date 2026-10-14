@@ -6,11 +6,16 @@ A web-based Blood Donation Management System designed to connect blood donors wi
 - **Live Link:** https://blood-donation-full-stack.vercel.app/
 - **Backend API:** https://l2-a6-blood-donation.vercel.app/
 - **GitHub Repository:** https://github.com/saifur2468/L2-A6-Blood-Donation-Backend
+  
+## 🔑 Admin Login Credentials
+**Email:** admin69@gmail.com
+**Password:** adminAB@##78
+**video Explanations** : https://drive.google.com/file/d/1vSEhdFTwDTvbl-ya7oTyjKfIEjFoHo78/view?usp=drive_link
 
 ## 🛠️ Technologies Used
 
 - **Backend:** Express.js,Node.js ,Nodemailer, cloudinary multer storage
-- **frontend:** TypeScript,Nextjs, talwind css 
+- **frontend:** TypeScript,Nextjs, tailwind css
 - **Database:** PostgreSQL,Prisma ORM
 - **Authentication:** JSON Web Token , Google login system 
 - **Payment Integration:** Stripe
