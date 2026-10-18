@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Blood Donation - Save Lives, Donate Blood",
   description: "A platform connecting blood donors with patients in urgent need.",
+  icons: {
+   icon: '/favicon.png', 
+  },
 };
 
 export default function RootLayout({
