@@ -4,7 +4,7 @@ import Navbar from "@/components/ui/home/navbar";
 import Footer from "@/components/ui/home/footer";
 import { ToastContainer } from "@/components/ui/toast";
 import { ThemeProvider } from "@/components/theme-provider";
-import BloodBackground from "@/components/BloodBackground";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -30,7 +30,7 @@ export default function RootLayout({
           <Footer />
 
           <ToastContainer />
-          <BloodBackground />
+         
         </ThemeProvider>
       </body>
     </html>
