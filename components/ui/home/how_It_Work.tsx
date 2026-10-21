@@ -1,176 +1,245 @@
-import Image from "next/image";
-import Link from "next/link";
-import { MdBloodtype } from "react-icons/md";
 
-type TextCard = {
-  kind: "text";
-  title: string;
-  points: string[];
-  href?: string;
-  variant: "red" | "dark";
-};
+"use client";
 
-type ImageCard = {
-  kind: "image";
-  src: string;
-  alt: string;
-};
+import React from "react";
+import {
+  Heart,
+  UserRound,
+  Scale,
+  Activity,
+  CheckCircle2,
+  XCircle,
+  Utensils,
+  Droplets,
+  Moon,
+  ShieldCheck,
+  Info,
+  ArrowRight,
+} from "lucide-react";
 
-const items: (TextCard | ImageCard)[] = [
+const requirements = [
   {
-    kind: "text",
-    title: "Why should you donate blood?",
-    points: [
-      "Your donated blood can save a life and make a meaningful difference.",
-      "Someone in your community may need blood when you least expect it.",
-      "Regular donation can be a healthy and rewarding habit for eligible donors.",
-    ],
-    variant: "red",
+    icon: UserRound,
+    title: "Age Requirement",
+    value: "Usually 18+",
+    description:
+      "The minimum and maximum eligible age depend on local blood donation guidelines.",
   },
   {
-    kind: "image",
-    src: "/img/6efafc1f-e5a2-4606-9b2b-1cd3cf66540a.jpg",
-    alt: "A blood donor giving blood with a nurse assisting",
+    icon: Scale,
+    title: "Weight Requirement",
+    value: "Often 50 kg+",
+    description:
+      "Many donation centers require at least 50 kg for a standard whole blood donation.",
   },
   {
-    kind: "text",
-    title: "Who can donate blood?",
-    points: [
-      "Healthy adults who meet the required age and eligibility criteria.",
-      "You should be physically fit and feeling well on the day of donation.",
-      "Weight and other eligibility requirements may apply.",
-      "Donation frequency depends on local blood donation guidelines.",
-    ],
-    variant: "red",
-  },
-  {
-    kind: "image",
-    src: "/img/TheWell_blood-donation_AS_567403348.jpg",
-    alt: "Blood donation equipment and medical supplies",
-  },
-  {
-    kind: "text",
-    title: "Common blood donation myths",
-    points: [
-      "The donation process usually involves only a brief needle prick.",
-      "Your body naturally replaces the donated blood over time.",
-      "Eligibility for people with certain conditions depends on medical guidance.",
-    ],
-    variant: "dark",
-  },
-  {
-    kind: "image",
-    src: "/img/mohila.jpg",
-    alt: "Blood bags prepared for donation",
+    icon: Activity,
+    title: "Good Health",
+    value: "Fit & Healthy",
+    description:
+      "You should feel well and pass the required health and hemoglobin screening.",
   },
 ];
 
-const btnVariants = {
-  red: "bg-[#e0294f] hover:bg-[#c91f42] border-[#f7a1b3] dark:border-[#e0294f]/60",
-  dark: "bg-[#171717] hover:bg-black border-[#555] dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-600",
-};
+const preparationTips = [
+  "Eat a healthy meal before donating.",
+  "Drink enough water before your appointment.",
+  "Get a good night's sleep.",
+  "Avoid alcohol before donation and follow the center's advice.",
+];
 
-export default function BloodDonationSection() {
+const deferralTips = [
+  "People who are currently unwell or have a fever.",
+  "People with certain medical conditions or medications.",
+  "Pregnant people and those temporarily ineligible after childbirth.",
+  "People who need to wait after certain tattoos, piercings or procedures.",
+];
+
+export default function BloodDonationGuide() {
   return (
-    <section
-      aria-label="Blood donation information"
-      className="px-4 py-16 sm:px-6 lg:px-8"
-    >
-      <div className="mx-auto max-w-7xl">
-        {/* Section Heading */}
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#15182b] dark:text-slate-100 sm:text-4xl">
-            Learn More About{" "}
-            <span className="text-[#e0294f]">Blood Donation</span>
+    <section className="relative overflow-hidden  py-16 text-slate-800 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 sm:py-20 lg:py-24">
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full bg-red-100/60 blur-3xl dark:bg-red-950/20" />
+      <div className="pointer-events-none absolute -left-32 bottom-20 h-72 w-72 rounded-full bg-rose-100/60 blur-3xl dark:bg-rose-950/20" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-16">
+          
+
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+            Who Can{" "}
+            <span className="text-red-600 dark:text-red-500">
+              Donate Blood?
+            </span>
           </h2>
 
-          <p className="mt-3 text-sm leading-6 text-neutral-500 dark:text-slate-400 sm:text-base">
-            Learn why blood donation matters, who can donate, and the facts
-            behind some common blood donation myths.
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base">
+            A single donation can make a meaningful difference. Learn about
+            the basic requirements and how to prepare for a safe donation.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid overflow-hidden rounded-3xl border border-neutral-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[0_20px_60px_rgba(0,0,0,0.06)] dark:shadow-none sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, index) =>
-            item.kind === "image" ? (
-              <div
-                key={index}
-                className="group relative min-h-[260px] overflow-hidden sm:min-h-[300px] lg:min-h-[330px]"
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
-                />
+        {/* Main content */}
+        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12 lg:gap-10">
+          {/* Left content */}
+          <div className="space-y-6 lg:col-span-8">
+            {/* Requirement cards */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {requirements.map((item) => {
+                const Icon = item.icon;
 
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70 dark:from-black/50" />
-
-                <div className="absolute bottom-5 left-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-sm text-[#e0294f] shadow-md">
-                  <MdBloodtype />
-                </div>
-              </div>
-            ) : (
-              <article
-                key={index}
-                className="group relative flex min-h-[330px] flex-col justify-between overflow-hidden bg-white dark:bg-slate-900 p-7 transition duration-300 hover:bg-red-50/30 dark:hover:bg-slate-800/60"
-              >
-                {/* Decorative Circle */}
-                <div
-                  className={`absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-10 ${
-                    item.variant === "red"
-                      ? "bg-[#e0294f]"
-                      : "bg-black dark:bg-white"
-                  }`}
-                />
-
-                <div className="relative z-10">
-                  {/* Number */}
-                  <span
-                    className={`mb-5 inline-flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white ${
-                      item.variant === "red"
-                        ? "bg-[#e0294f]"
-                        : "bg-[#171717] dark:bg-slate-700"
-                    }`}
+                return (
+                  <article
+                    key={item.title}
+                    className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg hover:shadow-red-100/40 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-red-900 dark:hover:shadow-none"
                   >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white dark:bg-red-950/50 dark:text-red-400 dark:group-hover:bg-red-600 dark:group-hover:text-white">
+                      <Icon className="h-6 w-6" />
+                    </div>
 
-                  <h3 className="max-w-xs text-xl font-bold leading-tight text-[#171b35] dark:text-slate-100">
-                    {item.title}
-                  </h3>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                      {item.title}
+                    </h3>
 
-                  <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-600 dark:text-slate-400">
-                    {item.points.map((point) => (
-                      <li key={point} className="flex gap-2.5">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#e0294f]" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    <p className="mt-3 text-xl font-extrabold tracking-tight text-red-600 dark:text-red-400">
+                      {item.value}
+                    </p>
+
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                      {item.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* Preparation and deferral */}
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {/* Preparation */}
+              <article className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400">
+                    <Utensils className="h-5 w-5" />
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white">
+                      Before You Donate
+                    </h3>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                      Prepare for your donation
+                    </p>
+                  </div>
                 </div>
 
-                {/* Read More */}
-                <Link
-                  href={item.href ?? "#"}
-                  className={`relative z-10 mt-7 inline-flex w-fit items-center gap-3 border-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0294f] ${
-                    btnVariants[item.variant]
-                  }`}
-                >
-                  Read More
-                  <span
-                    aria-hidden="true"
-                    className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] text-[#171717]"
-                  >
-                    →
-                  </span>
-                </Link>
+                <ul className="space-y-4">
+                  {preparationTips.map((tip) => (
+                    <li
+                      key={tip}
+                      className="flex items-start gap-3 text-sm leading-6 text-slate-600 dark:text-slate-300"
+                    >
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
               </article>
-            )
-          )}
+
+              {/* Temporary deferral */}
+              <article className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white">
+                      When to Wait
+                    </h3>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                      You may need medical clearance
+                    </p>
+                  </div>
+                </div>
+
+                <ul className="space-y-4">
+                  {deferralTips.map((tip) => (
+                    <li
+                      key={tip}
+                      className="flex items-start gap-3 text-sm leading-6 text-slate-600 dark:text-slate-300"
+                    >
+                      <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+          </div>
+
+          {/* Right illustration */}
+          <aside className="flex flex-col lg:col-span-4">
+            <div  >
+              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-red-100/70 blur-2xl dark:bg-red-900/20" />
+
+              <div className="relative mb-4 flex items-center gap-2">
+                {/* <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400">
+                  <Heart className="h-5 w-5 fill-current" />
+                </span>
+                <span className="text-sm font-bold text-red-700 dark:text-red-400">
+                  Every Drop Matters
+                </span> */}
+              </div>
+
+              <div className="relative flex flex-1 items-center justify-center py-4">
+                <img
+                  src="/img/docx-img-1771835316878-arduxu.png"
+                  alt="Illustration representing the importance of blood donation"
+                  className="h-auto max-h-[360px] w-full rounded-2xl  object-contain"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* <div className="relative mt-4 rounded-2xl border border-red-100 bg-white/90 p-5 dark:border-red-950/70 dark:bg-slate-950/60">
+                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
+                  Be someone's hero.
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  Your willingness to donate could help someone when they need
+                  it most.
+                </p>
+
+                <a
+                  href="/register"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                >
+                  Become a Donor
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div> */}
+            </div>
+          </aside>
+        </div>
+
+        {/* Important note */}
+        <div className="mt-8 flex items-start gap-4 rounded-2xl border border-blue-100 bg-blue-50/80 p-5 dark:border-blue-900/50 dark:bg-blue-950/20 sm:p-6">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400">
+            <Info className="h-5 w-5" />
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 dark:text-white">
+              Important to Know
+            </h3>
+            <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
+              These are general guidelines, not a medical eligibility
+              decision. Age and weight limits, health conditions, medications
+              and waiting periods vary. A qualified blood donation professional
+              will determine whether you can donate safely.
+            </p>
+          </div>
         </div>
       </div>
     </section>

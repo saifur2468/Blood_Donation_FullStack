@@ -1,72 +1,126 @@
+
+
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Droplets } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { animate } from "framer-motion";
 
+type Stats = {
+  totalUsers: number;
+  totalDonors: number;
+  totalBloodRequests: number;
+};
 
-const bloodGroups = [
-  { group: "A+", type: "Positive" },
-  { group: "A-", type: "Negative" },
-  { group: "B+", type: "Positive" },
-  { group: "B-", type: "Negative" },
-  { group: "O+", type: "Positive" },
-  { group: "O-", type: "Negative" },
-  { group: "AB+", type: "Positive" },
-  { group: "AB-", type: "Negative" },
-];
+const CountUp = ({ value }: { value: number }) => {
+  const [count, setCount] = useState(0);
 
-export default function BloodGroupSection() {
+  useEffect(() => {
+    const controls = animate(0, value, {
+      duration: 2,
+      ease: "easeOut",
+      onUpdate: (latest) => {
+        setCount(Math.floor(latest));
+      },
+    });
+
+    return () => controls.stop();
+  }, [value]);
+
+  return <>{count.toLocaleString("en-US")}+</>;
+};
+
+export default function HomeStats() {
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const backendUrl =
+          process.env.NEXT_PUBLIC_BACKEND_URL ||
+          "https://l2-a6-blood-donation.vercel.app";
+
+        const token = localStorage.getItem("accessToken");
+
+        const response = await axios.get(
+          `${backendUrl}/api/v1/admin/reports`,
+          {
+            headers: token
+              ? { Authorization: `Bearer ${token}` }
+              : {},
+          }
+        );
+
+        const data = response.data?.data ?? response.data;
+
+        setStats({
+          totalUsers: Number(data.totalUsers ?? 0),
+          totalDonors: Number(data.totalDonors ?? 0),
+          totalBloodRequests: Number(
+            data.totalBloodRequests ?? 0
+          ),
+        });
+      } catch (err) {
+        console.error("Failed to fetch statistics:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const items = [
+    {
+      label: "TOTAL USERS",
+      value: stats?.totalUsers ?? 0,
+    },
+    {
+      label: "BLOOD REQUESTS",
+      value: stats?.totalBloodRequests ?? 0,
+    },
+    {
+      label: "REGISTERED DONORS",
+      value: stats?.totalDonors ?? 0,
+    },
+  ];
+
   return (
-    <section className="py-16   ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-1.5 text-xs font-semibold text-red-600 mb-3 uppercase tracking-wider">
-            <Droplets className="w-3.5 h-3.5" />
-            Find By Blood Group
+    <section className="bg-slate-100 py-14 dark:bg-slate-950 sm:py-16">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 sm:grid-cols-3 sm:gap-4">
+        {loading ? (
+          <div className="col-span-full py-8 text-center text-sm text-slate-500">
+            Loading statistics...
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Search Donors by Blood Type
-          </h2>
-          <p className="mt-3 text-slate-600 text-sm sm:text-base">
-            Select your required blood group below to quickly find available donors or urgent requests in your area.
-          </p>
-        </div>
-
-        {/* Blood Group Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
-          {bloodGroups.map((item, index) => (
-            <motion.div
-              key={item.group}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+        ) : error ? (
+          <div
+            className="col-span-full py-8 text-center text-sm text-slate-500"
+            role="alert"
+          >
+            Statistics are temporarily unavailable.
+          </div>
+        ) : (
+          items.map((item) => (
+            <div
+              key={item.label}
+              className="flex flex-col items-center justify-center text-center"
             >
-              <Link
-                href={`/requests?bloodGroup=${encodeURIComponent(item.group)}`}
-                className="group relative flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-red-500 hover:bg-red-50/30 transition-all duration-300"
+              <p
+                className="text-4xl font-extrabold tracking-tight text-red-600 sm:text-5xl lg:text-6xl"
+                aria-label={`${item.label}: ${item.value}`}
               >
-                {/* Blood Drop Icon Background Effect */}
-                <div className="w-12 h-12 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-lg mb-3 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-inner">
-                  {item.group}
-                </div>
+                <CountUp value={item.value} />
+              </p>
 
-                <span className="text-xs font-medium text-slate-500 group-hover:text-red-700 transition-colors">
-                  {item.type}
-                </span>
-
-                {/* Subtle Arrow or Indicator on hover */}
-                <span className="absolute bottom-2 opacity-0 group-hover:opacity-100 text-xs font-semibold text-red-600 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                  Find &rarr;
-                </span>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
+              <p className="mt-3 text-sm font-medium text-slate-500 dark:text-slate-400 sm:text-base">
+                {item.label}
+              </p>
+            </div>
+          ))
+        )}
       </div>
     </section>
   );
