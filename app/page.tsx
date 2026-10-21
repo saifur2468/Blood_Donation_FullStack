@@ -1,5 +1,5 @@
 
-import HomeStats from '@/components/ui/home/bloodgroup';
+
 import EmergencyRequests from '@/components/ui/home/Emergency_blood';
 
 import FAQSection from '@/components/ui/home/faq';
@@ -16,7 +16,7 @@ const page = () => {
   return (
     <div>
       <Hero></Hero>
-    <HomeStats></HomeStats>
+   
       <EmergencyRequests></EmergencyRequests>
       <WhyChooseBloodLink></WhyChooseBloodLink>
    <BloodDonationGuide></BloodDonationGuide>
