@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Droplets, MoveRight, Search } from "lucide-react"; 
+import { Check, Droplets, MoveRight, Search, Users, HeartHandshake, FileText } from "lucide-react";
+import axios from "axios";
 
 // Features updated for Blood Donation
 const features = [
@@ -15,7 +16,14 @@ const features = [
 
 export default function Hero() {
   const [showFeatures, setShowFeatures] = useState(false);
+  const [stats, setStats] = useState({
+    totalDonors: 23,
+    totalBloodRequests: 18,
+    totalUsers: 35,
+  });
+  const [loading, setLoading] = useState(true);
 
+  // Toggle features text every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setShowFeatures((prev) => !prev);
@@ -24,155 +32,190 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section className="relative min-h-[calc(100vh-72px)] overflow-hidden">
-     
-      <div
-        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/img/bloodbank1.jpg')",
-        }}
-      />
+  // Fetch Live Stats from Admin Reports API
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token =
+          typeof window !== "undefined"
+            ? localStorage.getItem("accessToken")
+            : null;
+        const backendUrl =
+          process.env.NEXT_PUBLIC_BACKEND_URL ||
+          "https://l2-a6-blood-donation.vercel.app";
 
-      {/* Background Overlay */}
-      <div className="absolute inset-0 -z-10 backdrop-blur-[1px]" />
+        const res = await axios.get(`${backendUrl}/api/v1/admin/reports`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
 
-      {/* Red/Rose Gradient (Changed from Violet/Purple) */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/70 to-rose-100/50" />
+        const reportData = res.data?.data || res.data;
+        if (reportData && typeof reportData === "object") {
+          setStats({
+            totalDonors: reportData.totalDonors ?? 23,
+            totalBloodRequests: reportData.totalBloodRequests ?? 18,
+            totalUsers: reportData.totalUsers ?? 35,
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching live stats for Hero section:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      {/* Hero Content */}
-      <div className="mx-auto flex min-h-[calc(100vh-72px)] max-w-7xl items-center px-5 py-16 sm:px-8 lg:px-10">
-        <div className="max-w-2xl">
+    fetchStats();
+  }, []);
 
-          {/* Tagline updated */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50/80 px-4 py-2 text-sm font-medium text-red-700 backdrop-blur-sm"
-          >
-            <Droplets className="w-4 h-4 text-red-500" />
-            Become a Hero in Someone's Life
-          </motion.div>
+  
+return (
+  <section className="relative isolate overflow-hidden bg-white">
+    {/* Background */}
+    <div
+      className="absolute inset-0 -z-20 bg-cover bg-center"
+      style={{ backgroundImage: "url('/img/bloodbank1.jpg')" }}
+    />
 
-          {/* Main Heading updated */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl font-bold leading-[1.1] tracking-tight text-gray-950 sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-            <span>The Gift of Blood is</span>
-            <br />
-            {/* Gradient updated to Red */}
-            <span className="bg-gradient-to-r from-red-600 via-rose-600 to-red-500 bg-clip-text text-transparent">
-              <Typewriter
-                words={["The Gift of Life."]} // Typewriter text updated
-                loop={true}
-                typeSpeed={80}
-                deleteSpeed={50}
-                delaySpeed={2500}
-              />
+    <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/90 to-rose-50/70" />
+
+    <div className="mx-auto flex min-h-[480px] max-w-7xl flex-col justify-center px-5 py-9 sm:px-8 sm:py-10 lg:min-h-[510px] lg:px-10">
+      <div className="max-w-3xl">
+        {/* Tagline */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-100 bg-white/90 px-3 py-1.5 text-xs font-semibold text-red-700 shadow-sm sm:text-sm"
+        >
+          <Droplets className="h-4 w-4 text-red-500" />
+          Become a Hero in Someone's Life
+        </motion.div>
+
+        {/* Heading */}
+        <motion.h1
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-extrabold leading-tight tracking-tight text-gray-950 sm:text-4xl md:text-5xl lg:text-6xl"
+        >
+          The Gift of Blood is
+          <br />
+          <span className="bg-gradient-to-r from-red-600 via-rose-600 to-red-500 bg-clip-text text-transparent">
+            <Typewriter
+              words={["The Gift of Life.", "Hope for Someone."]}
+              loop
+              typeSpeed={65}
+              deleteSpeed={35}
+              delaySpeed={1800}
+            />
+          </span>
+        </motion.h1>
+
+        {/* Short Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-4 max-w-xl text-sm leading-6 text-gray-600 sm:text-base sm:leading-7"
+        >
+          Join{" "}
+          <span className="font-bold text-red-600">LifeDrop</span>{" "}
+          to connect blood donors with people in need. Your one
+          donation can help save a life.
+        </motion.p>
+
+        {/* Compact Features */}
+        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+          {features.map((feature) => (
+            <span
+              key={feature}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-700 sm:text-sm"
+            >
+              <Check className="h-4 w-4 shrink-0 text-red-600" />
+              {feature}
             </span>
-          </motion.h1>
+          ))}
+        </div>
 
-          {/* Description updated */}
-          <div className="mt-7 min-h-[110px] max-w-xl">
-            <AnimatePresence mode="wait">
-              {!showFeatures ? (
-                <motion.p
-                  key="description"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.45 }}
-                  className="text-base leading-8 text-gray-600 sm:text-lg"
-                >
-                  Join{" "}
-                  <span className="font-semibold text-red-600">
-               LifeDrop
-                  </span>{" "}
-                  today. We connect generous blood donors with patients facing medical emergencies. Every drop counts.
-                </motion.p>
-              ) : (
-                // Features list updated
-                <motion.div
-                  key="features"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.45 }}
-                  className="grid grid-cols-1 gap-3 sm:grid-cols-2"
-                >
-                  {features.map((feature, index) => (
-                    <motion.div
-                      key={feature}
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.4,
-                        delay: index * 0.08,
-                      }}
-                      className="flex items-center gap-3"
-                    >
-                      {/* Checkmark background color updated to Red */}
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-xs text-white">
-                        <Check />
-                      </span>
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-6 flex flex-col gap-3 sm:flex-row"
+        >
+          <a
+            href="/Register"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-200 transition hover:-translate-y-0.5 hover:bg-red-700"
+          >
+            Register Now
+            <MoveRight className="h-4 w-4" />
+          </a>
 
-                      <span className="text-sm font-medium text-gray-700 sm:text-base">
-                        {feature}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <a
+            href="/bloodrequest"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/90 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:border-red-200 hover:bg-red-50 hover:text-red-700"
+          >
+            <Search className="h-4 w-4" />
+            Create Blood Request
+          </a>
+        </motion.div>
+
+        {/* Stats - Left Side */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-7 grid max-w-2xl grid-cols-3 gap-3 border-t border-red-100 pt-5 sm:gap-5"
+        >
+          {/* Total Donors */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600 sm:h-11 sm:w-11">
+              <HeartHandshake className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+                Total Donors
+              </p>
+              <h4 className="text-lg font-extrabold text-gray-900 sm:text-2xl">
+                {loading ? "..." : `${stats.totalDonors}+`}
+              </h4>
+            </div>
           </div>
 
-          {/* Action Buttons updated */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row"
-          >
-            {/* Primary Button color updated to Red */}
-            <a
-              href="/Register" // Changed to registration
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-200 transition hover:-translate-y-0.5 hover:bg-red-700"
-            >
-              Register Now
-              <span>
-                <MoveRight />
-              </span>
-            </a>
+          {/* Blood Requests */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600 sm:h-11 sm:w-11">
+              <FileText className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+                Blood Requests
+              </p>
+              <h4 className="text-lg font-extrabold text-gray-900 sm:text-2xl">
+                {loading ? "..." : stats.totalBloodRequests}
+              </h4>
+            </div>
+          </div>
 
-            {/* Secondary Button color updated */}
-            <a
-              href="/bloodrequest" // Changed to view requests
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-gray-700 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-700"
-            >
-              <span>
-                <Search className="w-4 h-4" /> {/* Search icon for finding requests */}
-              </span>
-              Create Blood Requests
-            </a>
-          </motion.div>
-
-          {/* Trust Text updated */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-500"
-          >
-            <span>✓ Safe & Confidential</span>
-            <span>✓ Verified Requests</span>
-            <span>✓ 100% Volunteer-based</span>
-          </motion.div>
-        </div>
+          {/* Active Users */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 sm:h-11 sm:w-11">
+              <Users className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+                Active Users
+              </p>
+              <h4 className="text-lg font-extrabold text-gray-900 sm:text-2xl">
+                {loading ? "..." : stats.totalUsers}
+              </h4>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }
+
+

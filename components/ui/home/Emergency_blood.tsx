@@ -84,7 +84,7 @@ export default function EmergencyRequests() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12">
+    <section className="max-w-6xl mx-auto px-4 ">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 border border-red-100 dark:border-red-900/60">

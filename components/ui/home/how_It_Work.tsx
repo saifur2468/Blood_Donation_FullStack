@@ -54,10 +54,16 @@ const deferralTips = [
   "Pregnant people and those temporarily ineligible after childbirth.",
   "People who need to wait after certain tattoos, piercings or procedures.",
 ];
+const steps = [
+  { title: "Register", text: "Fill in a short form with your details." },
+  { title: "Quick screening", text: "Blood pressure, pulse and hemoglobin check." },
+  { title: "Donate", text: "Rest comfortably while one bag is collected." },
+  { title: "Rest and refresh", text: "Relax 10–15 minutes with a drink and snack." },
+];
 
 export default function BloodDonationGuide() {
   return (
-    <section className="relative overflow-hidden  py-16 text-slate-800 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden  text-slate-800 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 sm:py-20 lg:py-24">
       {/* Background decoration */}
       <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full bg-red-100/60 blur-3xl dark:bg-red-950/20" />
       <div className="pointer-events-none absolute -left-32 bottom-20 h-72 w-72 rounded-full bg-rose-100/60 blur-3xl dark:bg-rose-950/20" />
@@ -94,7 +100,7 @@ export default function BloodDonationGuide() {
                     key={item.title}
                     className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg hover:shadow-red-100/40 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-red-900 dark:hover:shadow-none"
                   >
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white dark:bg-red-950/50 dark:text-red-400 dark:group-hover:bg-red-600 dark:group-hover:text-white">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl  text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white  dark:text-red-400 dark:group-hover:bg-red-600 dark:group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </div>
 
@@ -181,7 +187,7 @@ export default function BloodDonationGuide() {
           {/* Right illustration */}
           <aside className="flex flex-col lg:col-span-4">
             <div  >
-              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-red-100/70 blur-2xl dark:bg-red-900/20" />
+              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full  dark:bg-red-900/20" />
 
               <div className="relative mb-4 flex items-center gap-2">
                 {/* <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400">
@@ -201,24 +207,24 @@ export default function BloodDonationGuide() {
                 />
               </div>
 
-              {/* <div className="relative mt-4 rounded-2xl border border-red-100 bg-white/90 p-5 dark:border-red-950/70 dark:bg-slate-950/60">
-                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
-                  Be someone's hero.
-                </h3>
-
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Your willingness to donate could help someone when they need
-                  it most.
-                </p>
-
-                <a
-                  href="/register"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
-                >
-                  Become a Donor
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div> */}
+           <div className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
+              <h3 className="text-lg font-extrabold text-slate-800">
+                What happens on the day
+              </h3>
+              <ol className="mt-4 space-y-4">
+                {steps.map((s, i) => (
+                  <li key={s.title} className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">{s.title}</p>
+                      <p className="text-sm text-slate-500">{s.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
             </div>
           </aside>
         </div>

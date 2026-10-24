@@ -42,7 +42,7 @@ const features = [
 
 export default function WhyChooseBloodLink() {
   return (
-    <section className="py-20 px-4 md:px-8">
+    <section className="px-4 md:px-8">
       <div className="max-w-7xl mx-auto text-center mb-16">
         {/* <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-red-600">
           WHY CHOOSE US

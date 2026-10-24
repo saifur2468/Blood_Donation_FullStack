@@ -89,7 +89,7 @@ export default function HomeStats() {
   ];
 
   return (
-    <section className="bg-slate-100 py-14 dark:bg-slate-950 sm:py-16">
+    <section className="bg-slate-100  dark:bg-slate-950 sm:py-16">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 sm:grid-cols-3 sm:gap-4">
         {loading ? (
           <div className="col-span-full py-8 text-center text-sm text-slate-500">
