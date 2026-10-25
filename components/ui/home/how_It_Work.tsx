@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { useState } from 'react';
 import {
   Check,
@@ -62,19 +63,18 @@ const statsData = [
 
 export default function BloodDonationSection() {
   const [selectedBlood, setSelectedBlood] = useState('O-');
-  const [hoveredStep, setHoveredStep] = useState(null);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
   const currentBloodInfo = bloodGroups.find(bg => bg.group === selectedBlood) || bloodGroups[0];
 
   return (
-    <div className="min-h-screen  text-slate-900 font-sans antialiased py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen text-slate-900 font-sans antialiased py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-28">
 
         {/* ================= SECTION 1: WHO CAN DONATE BLOOD? ================= */}
         <section className="space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto">
-
             <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900">
               Who can <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-500">donate blood?</span>
             </h2>
@@ -130,17 +130,14 @@ export default function BloodDonationSection() {
 
           {/* Bottom Info Grid (3 Cards) */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
             {/* Card 1: Before You Donate */}
             <div className="bg-gradient-to-br from-red-50/90 via-red-50/40 to-white rounded-3xl p-8 border border-red-100/80 shadow-sm hover:shadow-lg transition-all duration-300">
               <span className="inline-flex items-center gap-1.5 bg-red-600 text-white text-[11px] font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-6 shadow-sm shadow-red-600/30">
-
                 Before You Donate
               </span>
               <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">
                 Prepare for your donation
               </h3>
-
               <ul className="space-y-4">
                 {[
                   "Eat a healthy, iron-rich meal before donating.",
@@ -168,7 +165,6 @@ export default function BloodDonationSection() {
               <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">
                 You may need medical clearance
               </h3>
-
               <ul className="space-y-4">
                 {[
                   "People who are currently unwell, cold, or have a fever.",
@@ -189,9 +185,7 @@ export default function BloodDonationSection() {
             </div>
 
             {/* Card 3: Graphic Illustration Card */}
-            {/* Option 1: Custom Vector Illustration / Image */}
             <div className="relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-b from-red-50 to-white p-6 flex flex-col justify-between min-h-[340px] shadow-sm hover:shadow-md transition-shadow">
-              {/* Top Badge */}
               <div>
                 <span className="inline-block bg-rose-100 text-rose-700 text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full mb-2">
                   Why It Matters
@@ -199,7 +193,6 @@ export default function BloodDonationSection() {
                 <h3 className="text-xl font-bold text-slate-900">Be A Hero Today</h3>
               </div>
 
-              {/* Illustration or Image Center */}
               <div className="my-auto flex justify-center items-center py-4">
                 <img
                   src="/img/Screenshot 2026-10-24 203537.png"
@@ -208,20 +201,16 @@ export default function BloodDonationSection() {
                 />
               </div>
 
-              {/* Bottom Info Card */}
               <div className="bg-white/90 backdrop-blur-md p-3.5 rounded-2xl border border-red-100 shadow-sm">
                 <p className="font-mono text-xs text-red-600 font-bold uppercase tracking-wider"> LIFE SAVER</p>
                 <p className="text-xs text-slate-600 font-medium">1 single donation can save up to 3 human lives.</p>
               </div>
             </div>
-
           </div>
         </section>
 
-
         {/* ================= SECTION 2: WHAT HAPPENS ON THE DAY ================= */}
         <section className="space-y-12">
-          {/* Header */}
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="h-0.5 w-6 bg-red-600 inline-block rounded-full"></span>
@@ -236,7 +225,6 @@ export default function BloodDonationSection() {
 
           {/* Process Stepper */}
           <div className="relative pt-4">
-            {/* Connecting line */}
             <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-[2px] border-t-2 border-dashed border-red-200 z-0" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
@@ -249,7 +237,6 @@ export default function BloodDonationSection() {
                     onMouseLeave={() => setHoveredStep(null)}
                     className="flex flex-col items-start group cursor-pointer transition-all duration-300"
                   >
-                    {/* Circle Badge */}
                     <div className={`
                       w-12 h-12 rounded-2xl border-2 flex items-center justify-center font-black text-base mb-5 transition-all duration-300 shadow-sm
                       ${isHovered
@@ -259,7 +246,6 @@ export default function BloodDonationSection() {
                       {step.step}
                     </div>
 
-                    {/* Step Info */}
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">
                         {step.title}
@@ -301,10 +287,8 @@ export default function BloodDonationSection() {
           </div>
         </section>
 
-
         {/* ================= SECTION 3: WHO CAN YOUR BLOOD HELP? ================= */}
         <section className="space-y-8">
-          {/* Header */}
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="h-0.5 w-6 bg-red-600 inline-block rounded-full"></span>
@@ -364,8 +348,6 @@ export default function BloodDonationSection() {
               );
             })}
           </div>
-
-
         </section>
 
       </div>
