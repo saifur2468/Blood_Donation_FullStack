@@ -20,17 +20,19 @@ const page = () => {
       <ScrollAnimation delay={0.1}>
         <EmergencyRequests />
       </ScrollAnimation>
-
-      <ScrollAnimation delay={0.1}>
-        <WhyChooseBloodLink />
-      </ScrollAnimation>
-
       <ScrollAnimation delay={0.1}>
         <BloodDonationGuide />
       </ScrollAnimation>
 
       <ScrollAnimation delay={0.1}>
         <HealthBenefitsSection />
+      </ScrollAnimation>
+
+
+
+
+      <ScrollAnimation delay={0.1}>
+        <WhyChooseBloodLink />
       </ScrollAnimation>
 
       <ScrollAnimation delay={0.1}>
