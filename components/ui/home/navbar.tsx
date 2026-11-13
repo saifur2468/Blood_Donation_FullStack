@@ -35,9 +35,9 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
+     { name: "Find Donors", href: "/FindDonor" },
     { name: "About Us", href: "/about" },
-    { name: "Find Donors", href: "/FindDonor" },
-    { name: "How-it-works", href: "/howitworks" },
+   { name: "How-it-works", href: "/howitworks" },
     { name: "Blog", href: "/Blog" },
     { name: "Contact", href: "/contact" },
   ];
