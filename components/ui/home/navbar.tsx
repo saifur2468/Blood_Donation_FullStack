@@ -37,8 +37,8 @@ export default function Navbar() {
     { name: "Home", href: "/" },
      { name: "Find Donors", href: "/FindDonor" },
     { name: "About Us", href: "/about" },
-   { name: "How-it-works", href: "/howitworks" },
-    { name: "Blog", href: "/Blog" },
+   { name: "Emergency Services", href: "/emergency-Services" },
+    { name: "Health Tips", href: "/Health-Tips" },
     { name: "Contact", href: "/contact" },
   ];
 
