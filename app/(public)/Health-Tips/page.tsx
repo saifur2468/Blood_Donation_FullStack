@@ -78,7 +78,7 @@ export default function BlogsPage() {
         
         {/* Left Side: Featured Post Card */}
         <div className="lg:col-span-7">
-          <Link href={`/Blog/${featuredPost.id}`} className="group block relative">
+          <Link href={`/Health-Tips/${featuredPost.id}`} className="group block relative">
             <div className="relative w-full h-[430px] rounded-2xl overflow-hidden bg-slate-900 shadow-md">
               <img
                 src={featuredPost.image}
@@ -129,7 +129,7 @@ export default function BlogsPage() {
           {sidePosts.map((post) => (
             <Link
               key={post.id}
-              href={`/Blog/${post.id}`}
+              href={`/Health-Tips/${post.id}`}
               className="group bg-white border border-slate-100 p-3.5 rounded-2xl shadow-xs hover:shadow-md transition-all flex items-center gap-4"
             >
               {/* Thumbnail Image */}
